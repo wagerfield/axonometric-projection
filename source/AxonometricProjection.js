@@ -6,7 +6,7 @@
  * @param {Number} pitch The pitch angle of the scene in degrees.
  * @param {Number} rotation The rotation angle of the scene in degrees.
  */
-AxonometricProjection = function(pitch, rotation) {
+var AxonometricProjection = function(pitch, rotation) {
 
     /**
      * The origin offset of the world coordinate system.
