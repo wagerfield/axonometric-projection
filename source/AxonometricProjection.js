@@ -158,6 +158,17 @@ AxonometricProjection.prototype = {
     },
 
     /**
+     * Calculates and returns the rotation of the scene in degrees.
+     * @this {AxonometricProjection}
+     *
+     * @return {Number} The rotation of the scene in degrees.
+     */
+    rotation: function() {
+
+        return this.radiansToDegrees(this._rotationAngle);
+    },
+
+    /**
      * Projects a 3D point onto a plane and returnd the 2D point coordinate.
      * @this {AxonometricProjection}
      *
