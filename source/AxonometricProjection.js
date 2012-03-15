@@ -124,12 +124,12 @@ AxonometricProjection.prototype = {
 
         if (degrees !== null && degrees !== undefined) {
             
-            var sine = Math.sin(this.degreesToRadians(degrees));
-            var sign = sine / (sine ? Math.abs(sine) : 1);
-            var modulo = Math.abs(degrees) % 180 - 90;
-            var slope = (modulo > 0 ? 90 - modulo : 90 + modulo);
-            var angle = slope * sign;
-            var radians = this.degreesToRadians(angle);
+            var sine = Math.sin(this.degreesToRadians(degrees)),
+                sign = sine / (sine ? Math.abs(sine) : 1),
+                modulo = Math.abs(degrees) % 180 - 90,
+                slope = (modulo > 0 ? 90 - modulo : 90 + modulo),
+                angle = slope * sign,
+                radians = this.degreesToRadians(angle);
 
             this._pitchAngle = angle;
             this._pitchRatio = Math.sin(radians);
@@ -205,7 +205,7 @@ AxonometricProjection.prototype = {
 };
 
 // Assign AP to AxonometricProjection for convenience.
-AP = AxonometricProjection;
+var AP = AxonometricProjection;
 
 
 
