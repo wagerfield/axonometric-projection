@@ -52,6 +52,18 @@ AxonometricProjection = function(pitch, rotation) {
 AxonometricProjection.prototype = {
 
     /**
+     * Cache PI / 180 for calculating degrees to radians.
+     * @type {Number}
+     */
+    DTR: Math.PI / 180,
+
+    /**
+     * Cache 180 / PI for calculating radians to degrees.
+     * @type {Number}
+     */
+    RTD: 180 / Math.PI,
+
+    /**
      * Converts degrees to radians.
      * @this {AxonometricProjection}
      *
@@ -61,7 +73,7 @@ AxonometricProjection.prototype = {
      */
     degreesToRadians: function(degrees) {
       
-        return degrees * Math.PI / 180;
+        return degrees * this.DTR;
     },
 
     /**
@@ -74,7 +86,7 @@ AxonometricProjection.prototype = {
      */
     radiansToDegrees: function(radians) {
       
-        return radians * 180 / Math.PI;
+        return radians * this.RTD;
     },
 
     /**
