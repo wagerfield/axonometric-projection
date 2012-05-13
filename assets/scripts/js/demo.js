@@ -134,8 +134,8 @@ var Demo = (function() {
             scaleZ: 1
         },
         tyre: {
-            tumble: false,
-            warp: false,
+            tumble: true,
+            warp: true,
             resolution: 2,
             twist: 5,
             pinch: 0.8,
@@ -800,6 +800,9 @@ var Demo = (function() {
 
         updateTyre();
         resize();
+        raf('scene-tumble', properties.scene.tumble);
+        raf('tyre-tumble', properties.tyre.tumble);
+        raf('tyre-warp', properties.tyre.warp);
     }
 
     // Return the API
