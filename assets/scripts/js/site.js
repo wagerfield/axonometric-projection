@@ -5,40 +5,38 @@
  */
 (function() {
 
-    var i,j,l = 0,
-
-    location = encodeURIComponent(window.location),
-    repositoryURL = 'https://github.com/MatthewWagerfield/Axonometric-Projection/',
-    zipPath = 'zipball/master/',
+    var repositoryURL = 'https://github.com/MatthewWagerfield/Axonometric-Projection/',
+        zipPath = 'zipball/master/',
+        
+        about = document.getElementById('about'),
+        confirm = document.getElementById('confirm'),
+        links = document.getElementById('links').querySelectorAll('a'),
     
-    about = document.getElementById('about'),
-    confirm = document.getElementById('confirm'),
-    links = document.getElementById('links').querySelectorAll('a'),
-    contentItems = document.getElementById('links').querySelectorAll('.content > *'),
-    
-    callbacks = {
+        callbacks = {
 
-        onConfirmClick: function (event) {
-            if (about.className.indexOf('hide') > -1) {
-                about.classList.remove('hide');
-            } else {
-                about.classList.add('hide');
-            }
-            return false;
-        },
+            onConfirmClick: function (event) {
+                if (about.className.indexOf('hide') > -1) {
+                    about.classList.remove('hide');
+                } else {
+                    about.classList.add('hide');
+                }
+                return false;
+            },
 
-        onLinkClick: function (event) {
-            switch (this.parentNode.className) {
-                case 'download':
-                    window.location = repositoryURL + zipPath;
-                    break;
-                case 'github':
-                    window.location = repositoryURL;
-                    break;
+            onLinkClick: function (event) {
+                switch (this.parentNode.className) {
+                    case 'download':
+                        window.location = repositoryURL + zipPath;
+                        break;
+                    case 'github':
+                        window.location = repositoryURL;
+                        break;
+                }
+                return false;
             }
-            return false;
-        }
-    };
+        };
+
+        
 
     function initialise() {
         
@@ -46,20 +44,10 @@
         confirm.addEventListener('click', callbacks.onConfirmClick);
 
         // Add click handler to the links anchors.
-        for (i = 0, l = links.length; i < l; i++) {
+        for (var i = 0, l = links.length; i < l; i++) {
             links[i].addEventListener('click', callbacks.onLinkClick);
         }
         
-        // Replace sharing URL values with location.
-        for (i = 0, l = contentItems.length; i < l; i++) {
-            var attributes = contentItems[i].attributes;
-            for (j = 0; j < attributes.length; j++) {
-                if (attributes[j].value === 'location') {
-                    attributes[j].value = location;
-                }
-            }
-        }
-
         // Add the animate class after the page has loaded.
         about.classList.add('animate');
 
