@@ -1,0 +1,769 @@
+@import url('http://fonts.googleapis.com/css?family=Oswald:700,300|Prata');
+body {
+  background: #e5d1c3;
+  margin: 0px;
+}
+h1,
+h2,
+h3,
+h4,
+a,
+li,
+span {
+  font-family: Oswald, sans-serif;
+  text-transform: uppercase;
+  color: #111111;
+  font-weight: 300;
+  margin: 0px;
+}
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+a strong,
+li strong,
+span strong {
+  font-weight: 700;
+}
+.center {
+  width: 940px;
+  margin: 0px auto;
+}
+.dragging {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+#content {
+  position: absolute;
+  height: 100%;
+  right: 240px;
+  left: 0px;
+}
+#header {
+  text-align: center;
+  position: relative;
+  padding-top: 40px;
+}
+#header h1 {
+  letter-spacing: -1px;
+  position: relative;
+  line-height: 44px;
+  font-weight: 700;
+  font-size: 36px;
+}
+#header h1:before {
+  border: 1px solid rgba(17, 17, 17, 0.4);
+  margin-left: -130px;
+  position: absolute;
+  border-right: none;
+  border-left: none;
+  width: 260px;
+  display: block;
+  height: 100%;
+  content: '';
+  left: 50%;
+  top: 0px;
+}
+#header h2 {
+  line-height: 24px;
+  font-size: 16px;
+}
+#about {
+  -webkit-border-radius: 150px;
+  -moz-border-radius: 150px;
+  border-radius: 150px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 10px 100px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.8) 0px 10px 100px;
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 10px 100px;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 80px 40px 120px;
+  margin-left: -150px;
+  position: absolute;
+  width: 220px;
+  z-index: 100;
+  left: 50%;
+  top: 50px;
+}
+#about h2 {
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin-bottom: 2px;
+  font-size: 16px;
+}
+#about h1 {
+  margin: 0px auto 20px;
+  position: relative;
+  text-align: center;
+  font-weight: 700;
+  font-size: 32px;
+  color: #fff;
+  width: 140px;
+}
+#about h1:before {
+  color: rgba(255, 255, 255, 0.1);
+  content: '{';
+  position: absolute;
+  font-weight: 300;
+  font-size: 120px;
+  top: -26px;
+  left: -40px;
+}
+#about h1:after {
+  color: rgba(255, 255, 255, 0.1);
+  content: '}';
+  position: absolute;
+  font-weight: 300;
+  font-size: 120px;
+  top: -26px;
+  right: -40px;
+}
+#about h1 em {
+  font-style: normal;
+  line-height: 70px;
+  margin-left: 5px;
+  font-size: 80px;
+  display: block;
+}
+#about ol {
+  counter-reset: point;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+#about ol li {
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  line-height: 20px;
+  font-size: 14px;
+}
+#about ol li:before {
+  content: counter(point) ' -';
+  font-family: Prata, serif;
+  counter-increment: point;
+  letter-spacing: -1px;
+  position: absolute;
+  font-style: italic;
+  font-size: 20px;
+  color: #555;
+  left: -28px;
+  top: -1px;
+}
+#about ol li em {
+  color: #993d5c;
+  font-style: normal;
+  line-height: 18px;
+  font-weight: 700;
+}
+#about ol li + li {
+  margin-top: 12px;
+}
+#about a {
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-box-shadow: rgba(0, 0, 0, 0) 0px 2px 2px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0) 0px 2px 2px inset;
+  box-shadow: rgba(0, 0, 0, 0) 0px 2px 2px inset;
+  margin-left: -30px;
+  line-height: 60px;
+  position: absolute;
+  text-align: center;
+  background: #fff;
+  font-size: 16px;
+  display: block;
+  height: 60px;
+  width: 60px;
+  bottom: 40px;
+  left: 50%;
+}
+#about a:hover {
+  -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 2px 2px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.8) 0px 2px 2px inset;
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 2px 2px inset;
+  background: #993d5c;
+  color: #fff;
+}
+#about.animate {
+  -webkit-transition: all 0.65s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: all 0.65s cubic-bezier(0.86, 0, 0.07, 1);
+  -ms-transition: all 0.65s cubic-bezier(0.86, 0, 0.07, 1);
+  -o-transition: all 0.65s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: all 0.65s cubic-bezier(0.86, 0, 0.07, 1);
+}
+#about.hide {
+  -webkit-box-shadow: rgba(0, 0, 0, 0) 0px 10px 0px;
+  -moz-box-shadow: rgba(0, 0, 0, 0) 0px 10px 0px;
+  box-shadow: rgba(0, 0, 0, 0) 0px 10px 0px;
+  top: -850px;
+}
+#about.hide a {
+  -webkit-transition: all 0.3s 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: all 0.3s 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: all 0.3s 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: all 0.3s 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-box-shadow: rgba(0, 0, 0, 0) 0px 2px 2px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0) 0px 2px 2px inset;
+  box-shadow: rgba(0, 0, 0, 0) 0px 2px 2px inset;
+  color: rgba(0, 0, 0, 0);
+  background: #fff;
+  bottom: -50px;
+}
+#fork {
+  background-image: url('../../graphics/spritesheet.png');
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-color: transparent;
+  -webkit-transition: margin 0.15s linear;
+  -moz-transition: margin 0.15s linear;
+  -ms-transition: margin 0.15s linear;
+  -o-transition: margin 0.15s linear;
+  transition: margin 0.15s linear;
+  text-indent: -999em;
+  position: absolute;
+  margin: -10px;
+  overflow: hidden;
+  display: block;
+  height: 150px;
+  width: 150px;
+  z-index: 2;
+  left: 0px;
+  top: 0px;
+}
+#fork:hover {
+  margin: -5px;
+}
+#demo {
+  position: absolute;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  left: 0px;
+  top: 0px;
+}
+#canvas {
+  position: absolute;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+#canvas.dragging {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+#origin {
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  border: 10px solid #ffffff;
+  margin: -30px;
+  position: absolute;
+  opacity: 0.6;
+  height: 40px;
+  width: 40px;
+  left: 0px;
+  top: 0px;
+}
+#origin:before {
+  left: 10px;
+  top: 18px;
+  height: 4px;
+  width: 20px;
+  background: #ffffff;
+  position: absolute;
+  display: block;
+  content: '';
+}
+#origin:after {
+  left: 18px;
+  top: 10px;
+  height: 20px;
+  width: 4px;
+  background: #ffffff;
+  position: absolute;
+  display: block;
+  content: '';
+}
+#nodes {
+  pointer-events: none;
+  counter-reset: node;
+  position: absolute;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+#nodes li {
+  -webkit-border-radius: 25px 25px 10px 25px;
+  -moz-border-radius: 25px 25px 10px 25px;
+  border-radius: 25px 25px 10px 25px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
+  background: rgba(229, 23, 57, 0.6);
+  margin: -43px;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  display: block;
+  left: 0px;
+  top: 0px;
+}
+#nodes li:before {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px inset;
+  background: rgba(64, 26, 51, 0.8);
+  line-height: 42px;
+  font-family: Prata, serif;
+  content: counter(node) '.';
+  counter-increment: node;
+  text-align: center;
+  font-style: italic;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  font-size: 22px;
+  display: block;
+  left: 5px;
+  top: 5px;
+  color: #fff;
+}
+#nodes li:after {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  background: rgba(64, 26, 51, 0.8);
+  position: absolute;
+  height: 4px;
+  width: 4px;
+  bottom: 5px;
+  right: 5px;
+  display: block;
+  content: '';
+}
+#links {
+  position: absolute;
+  margin-top: -100px;
+  z-index: 2;
+  left: 0%;
+  top: 50%;
+}
+#links ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+#links ul + ul {
+  margin-top: 5px;
+}
+#links ul li {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px;
+  position: relative;
+  width: 40px;
+  padding: 0px;
+  margin: 0px;
+}
+#links ul li + li .icon {
+  border-top: 1px solid #262626;
+}
+#links ul li + li .content {
+  top: 1px;
+}
+#links ul li .icon {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  display: block;
+  z-index: 2;
+}
+#links ul li .content {
+  padding: 10px 0px 0px 50px;
+  height: 30px;
+  display: inline-block;
+  width: 100px;
+  background: #ffffff;
+  position: absolute;
+  z-index: 1;
+  right: 0px;
+  top: 0px;
+}
+#links ul li.download.extend {
+  -webkit-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#links ul li.download.extend:hover {
+  -webkit-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 150px;
+}
+#links ul li.download .icon {
+  -webkit-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-image: url('../../graphics/spritesheet.png');
+  background-repeat: no-repeat;
+  background-position: -40px 0px;
+  background-color: transparent;
+  background-color: #111111;
+}
+#links ul li.download .content {
+  -webkit-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 0;
+}
+#links ul li.download:hover .icon {
+  -webkit-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-position: 0px 0px;
+  background-color: #ffffff;
+}
+#links ul li.download:hover .content {
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 1;
+}
+#links ul li.github.extend {
+  -webkit-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#links ul li.github.extend:hover {
+  -webkit-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 150px;
+}
+#links ul li.github .icon {
+  -webkit-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-image: url('../../graphics/spritesheet.png');
+  background-repeat: no-repeat;
+  background-position: -40px -40px;
+  background-color: transparent;
+  background-color: #111111;
+}
+#links ul li.github .content {
+  -webkit-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 0;
+}
+#links ul li.github:hover .icon {
+  -webkit-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-position: 0px -40px;
+  background-color: #ffffff;
+}
+#links ul li.github:hover .content {
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 1;
+}
+#links ul li.twitter.extend {
+  -webkit-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#links ul li.twitter.extend:hover {
+  -webkit-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 150px;
+}
+#links ul li.twitter .icon {
+  -webkit-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-image: url('../../graphics/spritesheet.png');
+  background-repeat: no-repeat;
+  background-position: -40px -80px;
+  background-color: transparent;
+  background-color: #111111;
+}
+#links ul li.twitter .content {
+  -webkit-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 0;
+}
+#links ul li.twitter:hover .icon {
+  -webkit-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-position: 0px -80px;
+  background-color: #ffffff;
+}
+#links ul li.twitter:hover .content {
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 1;
+}
+#links ul li.facebook.extend {
+  -webkit-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#links ul li.facebook.extend:hover {
+  -webkit-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 150px;
+}
+#links ul li.facebook .icon {
+  -webkit-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-image: url('../../graphics/spritesheet.png');
+  background-repeat: no-repeat;
+  background-position: -40px -120px;
+  background-color: transparent;
+  background-color: #111111;
+}
+#links ul li.facebook .content {
+  -webkit-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 0;
+}
+#links ul li.facebook:hover .icon {
+  -webkit-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-position: 0px -120px;
+  background-color: #ffffff;
+}
+#links ul li.facebook:hover .content {
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 1;
+}
+#links ul li.googleplus.extend {
+  -webkit-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#links ul li.googleplus.extend:hover {
+  -webkit-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 150px;
+}
+#links ul li.googleplus .icon {
+  -webkit-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-image: url('../../graphics/spritesheet.png');
+  background-repeat: no-repeat;
+  background-position: -40px -160px;
+  background-color: transparent;
+  background-color: #111111;
+}
+#links ul li.googleplus .content {
+  -webkit-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 0;
+}
+#links ul li.googleplus:hover .icon {
+  -webkit-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-position: 0px -160px;
+  background-color: #ffffff;
+}
+#links ul li.googleplus:hover .content {
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 1;
+}
+#controls {
+  position: absolute;
+  width: 245px;
+  right: 0px;
+  z-index: 2;
+  top: 0px;
+}
+#controls .folder li {
+  padding-left: 8px;
+}
+#controls .folder .title {
+  padding-left: 16px;
+}
+#controls .folder .cr.number {
+  border-left-color: #e55c67;
+}
+#controls .folder .cr.number input[type="text"] {
+  color: #e55c67;
+}
+#controls .folder .slider-fg {
+  background: #e55c67;
+}
+#controls .title,
+#controls .close-button {
+  font-family: Oswald, sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #bbb;
+}
+#controls .close-button {
+  font-size: 10px;
+}
+#controls span {
+  font-family: Arial;
+  text-transform: none;
+  font-size: 12px;
+  color: #999;
+}
+#credits {
+  position: absolute;
+  height: 39px;
+  width: 210px;
+  bottom: 40px;
+  right: 35px;
+  z-index: 1;
+}
+#credits span {
+  position: absolute;
+  font-size: 13px;
+  color: rgba(17, 17, 17, 0.5);
+  left: 0px;
+  top: 0px;
+}
+#credits a {
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 1px solid rgba(17, 17, 17, 0.4);
+  text-decoration: none;
+  display: inline-block;
+  position: absolute;
+  border-right: none;
+  border-left: none;
+  line-height: 18px;
+  padding-top: 1px;
+  font-weight: 700;
+  font-size: 16px;
+  color: rgba(17, 17, 17, 0.5);
+  left: 60px;
+  top: 18px;
+}
+#credits a:hover {
+  -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -ms-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border-color: #66b2cc;
+  color: #66b2cc;
+}
