@@ -260,7 +260,7 @@ var Demo = (function() {
         onTyreChange: function(value) {
 
             updateTyre();
-            
+
             if (!store.raf.enabled) update();
 
             raf('tyre-tumble', properties.tyre.tumble);
@@ -309,12 +309,12 @@ var Demo = (function() {
      * @this {demo}
      */
     function resize() {
-        
+
         layout.width = window.innerWidth - 240;
         layout.height = window.innerHeight;
         layout.origin.x = Math.round(layout.width * 0.50);
         layout.origin.y = Math.round(layout.height * 0.7);
-        
+
         canvas.attributes.width.value = layout.width;
         canvas.attributes.height.value = layout.height;
 
@@ -331,9 +331,9 @@ var Demo = (function() {
      * @param {Boolean} value Whether or not to enable requestAnimationFrame.
      */
     function raf(key, value) {
-        
+
         var enable = false;
-       
+
         store.raf.keys[key] = value;
         for (var i in store.raf.keys) {
             if (store.raf.keys[i]) {
@@ -800,9 +800,12 @@ var Demo = (function() {
 
         updateTyre();
         resize();
-        raf('scene-tumble', properties.scene.tumble);
-        raf('tyre-tumble', properties.tyre.tumble);
-        raf('tyre-warp', properties.tyre.warp);
+
+        setTimeout(function() {
+            raf('scene-tumble', properties.scene.tumble);
+            raf('tyre-tumble', properties.tyre.tumble);
+            raf('tyre-warp', properties.tyre.warp);
+        }, 800);
     }
 
     // Return the API
