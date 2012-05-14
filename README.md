@@ -37,6 +37,7 @@ scene.addChild(nodeA);
 nodeA.addChild(nodeB);
 
 // Transform the nodes.
+nodeA.translate(0, 50, 0);
 nodeA.rotate(0, 45, 0);
 nodeB.translate(100, 0, 0);
 
@@ -45,6 +46,7 @@ scene.projectNodes();
 
 // Draw the result to the canvas.
 context.moveTo(scene.origin.x, scene.origin.y);
+context.lineTo(nodeA.px, nodeA.py);
 context.lineTo(nodeB.px, nodeB.py);
 context.stroke();
 ```
