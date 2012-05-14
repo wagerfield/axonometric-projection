@@ -49,7 +49,7 @@ context.lineTo(nodeB.px, nodeB.py);
 context.stroke();
 ```
 
-For a more complex example of what can be done, check out the demo [here](http://matthewwagerfield.github.com/Axonometric-Projection/), and the source [here](https://github.com/MatthewWagerfield/Axonometric-Projection/).
+For a more complex example of what can be done, check out the demo [here](http://matthewwagerfield.github.com/Axonometric-Projection/), and the source [here](https://github.com/MatthewWagerfield/Axonometric-Projection/tree/gh-pages/).
 
 ##Author:
 
