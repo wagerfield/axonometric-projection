@@ -2,68 +2,87 @@
  * Build script for Axonometric Projection.
  *
  * @author Matthew Wagerfield
+ * @author Carl Calderon
  * @see http://twitter.com/mwagerfield
  */
-var FILE_ENCODING = 'utf-8',
-    FILE_SYSTEM = require('fs'),
-    UGLIFY = require('uglify-js'),
-    LICENSE_FILE = 'license.js',
-    SOURCE_DIRECTORY = '../source',
-    DEPLOY_DIRECTORY = '../deploy',
+var FILE_ENCODING     = 'utf-8',
+    LICENSE_FILE      = '../LICENSE',
+    SOURCE_DIRECTORY  = '../source',
+    DEPLOY_DIRECTORY  = '../deploy',
     CONCATENATED_FILE = DEPLOY_DIRECTORY + '/ap.js',
-    MINIFIED_FILE = DEPLOY_DIRECTORY + '/ap.min.js',
-    SEPARATOR = '\n\n';
+    MINIFIED_FILE     = DEPLOY_DIRECTORY + '/ap.min.js',
+    SEPARATOR         = '\n\n',
 
-var license = FILE_SYSTEM.readFileSync(LICENSE_FILE, FILE_ENCODING);
+    fs      = require('fs'),
+    uglify  = require('uglify-js'),
+    content = '',
+    license = fs.readFileSync(LICENSE_FILE, FILE_ENCODING);
 
 /**
  * Concatenates a list of files into a single file.
  *
  * @param {Array} fileList List of file paths to concatenate.
- * @param {String} outputPath Path of the output file.
+ * @return {String} Concatenated file contents
  */
-function concatenate(fileList, outputPath) {
+function concatenate(fileList) {
 
-    var contentList = fileList.map(function(filePath){
-        return FILE_SYSTEM.readFileSync(filePath, FILE_ENCODING);
+    console.log('CONCATENATED:');
+    contentList = fileList.map(function (filePath) {
+        console.log('> ' + filePath);
+        return fs.readFileSync(filePath, FILE_ENCODING);
     });
-    contentList.unshift(license);
-
-    FILE_SYSTEM.writeFileSync(outputPath, contentList.join(SEPARATOR), FILE_ENCODING);
-
-    var log = 'CONCATENATED:';
-    for (var i = 0, l = fileList.length; i < l; i++) log += '\n> ' + fileList[i];
-    log += '\nINTO: ' + outputPath;
-    console.log(log);
+    return contentList.join(SEPARATOR);
 }
 
 /**
  * Minifies a file using Uglify JS.
  *
- * @param {String} filePath The file to minify.
- * @param {String} outputPath Path of the output file.
+ * @param {String} content Content to minify
+ * @return {String} Minified version
  */
-function uglify(filePath, outputPath) {
-    
-    var jsp = UGLIFY.parser,
-        pro = UGLIFY.uglify,
-        ast = jsp.parse(FILE_SYSTEM.readFileSync(filePath, FILE_ENCODING));
-
-    ast = pro.ast_mangle(ast);
-    ast = pro.ast_squeeze(ast);
-
-    FILE_SYSTEM.writeFileSync(outputPath, pro.gen_code(ast), FILE_ENCODING);
-
-    console.log('UGLIFIED:', filePath, 'INTO:', outputPath);
+function minify(content) {
+    var result = uglify(content),
+        sizeBefore = content.length,
+        sizeAfter = result.length;
+    console.log('UGLIFY REDUCED: ' + ((1 - (sizeAfter / sizeBefore)) * 100).toFixed(2) + '%');
+    return result;
 }
 
-concatenate([
+/**
+ * Writes a string to a file.
+ *
+ * @param {String} content Content to write
+ * @param {String} to File path
+ */
+function write(content, to) {
+    fs.writeFileSync(to, content, FILE_ENCODING);
+    console.log('INTO: ' + to);
+}
+
+/**
+ * Adds a string to the beginning of another
+ * string separated by SEPARATOR.
+ *
+ * @param {String} content Content to add
+ * @param {String} to String to prepend
+ * @return {String} Combined content
+ */
+function prepend(content, to) {
+    return content + SEPARATOR + to;
+}
+
+// combine files
+content = concatenate([
     SOURCE_DIRECTORY + '/AP.js',
     SOURCE_DIRECTORY + '/Math.js',
     SOURCE_DIRECTORY + '/Matrix.js',
     SOURCE_DIRECTORY + '/Quaternion.js',
     SOURCE_DIRECTORY + '/Scene.js',
     SOURCE_DIRECTORY + '/Node.js'
-],  CONCATENATED_FILE);
+]);
 
-uglify(CONCATENATED_FILE, MINIFIED_FILE);
+// write uncompressed
+write(prepend(license, content), CONCATENATED_FILE);
+
+// write compressed
+write(prepend(license, minify(content)), MINIFIED_FILE);
