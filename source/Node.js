@@ -243,7 +243,7 @@ AP.Node.prototype = {
     rotate: function(x, y, z) {
 
         if (this.localRotation) {
-            
+
             var dx = x - this._rotationX,
                 dy = y - this._rotationY,
                 dz = z - this._rotationZ;
@@ -253,7 +253,7 @@ AP.Node.prototype = {
             AP.Quaternion.multiply(this._quaternion, this._qs1, this._qs2);
 
         } else {
-            
+
             AP.Quaternion.fromEuler(this._quaternion, x, y, z);
         }
 

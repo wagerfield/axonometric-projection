@@ -574,6 +574,22 @@ AP.Scene.prototype = {
             this._children.push(node);
             node._parent = this;
             node._scene = this;
+
+            // Store a reference to this Scene.
+            var scene = this;
+
+            // Recursively set the Scene on each Nodes children.
+            var setScene = function(node) {
+                node._scene = scene;
+                for (var i = 0, l = node._children.length; i < l; i++) {
+                    setScene(node._children[i]);
+                }
+            };
+
+            // Iterate through the Node's children and set their Scene.
+            for (var i = 0, l = node._children.length; i < l; i++) {
+                setScene(node._children[i]);
+            }
         }
 
         return node;
@@ -593,6 +609,19 @@ AP.Scene.prototype = {
             this._children.splice(this._children.indexOf(node), 1);
             node._parent = null;
             node._scene = null;
+
+            // Recursively void the Scene on each Nodes children.
+            var voidScene = function(node) {
+                node._scene = null;
+                for (var i = 0, l = node._children.length; i < l; i++) {
+                    voidScene(node._children[i]);
+                }
+            };
+
+            // Iterate through the Node's children and void their Scene.
+            for (var i = 0, l = node._children.length; i < l; i++) {
+                voidScene(node._children[i]);
+            }
         }
 
         return node;
@@ -906,7 +935,7 @@ AP.Node.prototype = {
     rotate: function(x, y, z) {
 
         if (this.localRotation) {
-            
+
             var dx = x - this._rotationX,
                 dy = y - this._rotationY,
                 dz = z - this._rotationZ;
@@ -916,7 +945,7 @@ AP.Node.prototype = {
             AP.Quaternion.multiply(this._quaternion, this._qs1, this._qs2);
 
         } else {
-            
+
             AP.Quaternion.fromEuler(this._quaternion, x, y, z);
         }
 
