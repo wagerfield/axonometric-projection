@@ -274,8 +274,21 @@ AP.Node.prototype = {
 
         if (!~this._children.indexOf(node) && node.TYPE === this.TYPE) {
             this._children.push(node);
-            node._scene = this._scene;
             node._parent = this;
+
+            // Store a reference to the Node's Scene.
+            var scene = this._scene;
+
+            // Recursively set the Scene on each Nodes children.
+            var setScene = function(node) {
+                node._scene = scene;
+                for (var i = 0, l = node._children.length; i < l; i++) {
+                    setScene(node._children[i]);
+                }
+            };
+
+            // Set the scene on the passed Node.
+            setScene(node);
         }
 
         return node;
@@ -294,7 +307,17 @@ AP.Node.prototype = {
         if (~this._children.indexOf(node)) {
             this._children.splice(this._children.indexOf(node), 1);
             node._parent = null;
-            node._scene = null;
+
+            // Recursively void the Scene on each Node's children.
+            var voidScene = function(node) {
+                node._scene = null;
+                for (var i = 0, l = node._children.length; i < l; i++) {
+                    voidScene(node._children[i]);
+                }
+            };
+
+            // Void the scene on the passed Node.
+            voidScene(node);
         }
 
         return node;

@@ -135,7 +135,7 @@ AP.Scene.prototype = {
             // Store a reference to this Scene.
             var scene = this;
 
-            // Recursively set the Scene on each Nodes children.
+            // Recursively set the Scene on each Node's children.
             var setScene = function(node) {
                 node._scene = scene;
                 for (var i = 0, l = node._children.length; i < l; i++) {
@@ -164,7 +164,7 @@ AP.Scene.prototype = {
             this._children.splice(this._children.indexOf(node), 1);
             node._parent = null;
 
-            // Recursively void the Scene on each Nodes children.
+            // Recursively void the Scene on each Node's children.
             var voidScene = function(node) {
                 node._scene = null;
                 for (var i = 0, l = node._children.length; i < l; i++) {
