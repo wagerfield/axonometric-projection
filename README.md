@@ -8,7 +8,7 @@ A simple, lightweight 2.5D [axonometric](http://en.wikipedia.org/wiki/Axonometri
 
 * A **Node** can be added as a **child** to a **Scene**: `myScene.addChild(myNode);`, or to another **Node**: `myParentNode.addChild(myChildNode);`.
 * A **Scene** can be both **rotated**: `myScene.rotate(45);` and **pitched**: `myScene.pitch(35);`. This would give you an isometric scene.
-* A **Node** can be **translated**: `myNode.translate(50, 200, 0);`, **rotated**: `myNode.rotate(45, 90, 0);` and **scaled**: `myNode.scale(0.5, 2, 1);`.
+* A **Node** can be **translated**: `myNode.translate(50, 200, 0);`, **rotated**: `myNode.rotate(45, 90, 0);` and **scaled**: `myNode.scale(0.5, 2, 1);`. Each of these **9 transformtion** properties can also be set directly on the **Node** such that: `myNode.x = 100; myNode.scaleY = 2; myNode.rotationZ = 45;`.
 * **Nodes** can also be configured to rotate about their **local** coordinate space by setting: `myNode.localRotation = true;`. This is useful for *walking* or *flying* Nodes around a **Scene**.
 * Nested **Nodes** inherit their **parent's transformations**.
 * **Nodes** are projected from their **3D Scene coordinate** to a **2D Screen coordinate** by calling either: `myScene.projectNodes();` - which recursively loops through and calls `.project();` on all the **Nodes** in the **Scene**, or `myNode.project();` - which calculates the projected coordinates for just that **Node**.
@@ -37,9 +37,10 @@ scene.addChild(nodeA);
 nodeA.addChild(nodeB);
 
 // Transform the nodes.
-nodeA.translate(0, 50, 0);
-nodeA.rotate(0, 45, 0);
-nodeB.translate(100, 0, 0);
+nodeA.x = 50;
+nodeA.rotate(20, 45, 0);
+nodeB.translate(0, 100, 50);
+nodeB.scaleY = 2;
 
 // Project the nodes in the scene.
 scene.projectNodes();
