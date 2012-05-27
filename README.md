@@ -4,7 +4,7 @@ If you haven't seen the demo, you probably should. You can find it [here](http:/
 
 ##What is it?
 
-A simple, lightweight 2.5D [axonometric](http://en.wikipedia.org/wiki/Axonometric_projection) projection engine consisting of just 2 components - a **Scene**: `var myScene = new AP.Scene();` & **Nodes**: `var myNode = new AP.Node();`.
+A simple, lightweight 2.5D [Axonometric](http://en.wikipedia.org/wiki/Axonometric_projection) Projection Engine consisting of just 2 components - a **Scene**: `var myScene = new AP.Scene();` & **Nodes**: `var myNode = new AP.Node();`.
 
 * A **Node** can be added as a **child** to a **Scene**: `myScene.addChild(myNode);`, or to another **Node**: `myParentNode.addChild(myChildNode);`.
 * A **Scene** can be both **rotated**: `myScene.rotate(45);` and **pitched**: `myScene.pitch(35);`. This would give you an isometric scene.
