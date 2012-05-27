@@ -660,9 +660,22 @@ AP.Scene.prototype = {
 
         // Sorts the collected Nodes by their zDepth.
         var sortOnDepth = function(a, b) {
-            if (a._zDepth < b._zDepth) return -1;
-            if (a._zDepth > b._zDepth) return  1;
-            return 0;
+            if (a._zDepth < b._zDepth) {
+                return -1;
+            }
+            if (a._zDepth > b._zDepth) {
+                return 1;
+            }
+            if (a._zDepth === b._zDepth) {
+
+                if (a.zPriority < b.zPriority) {
+                    return -1;
+                }
+                if (a.zPriority > b.zPriority) {
+                    return 1;
+                }
+                return 0;
+            }
         };
 
         // Sort the nodes.
@@ -749,6 +762,12 @@ AP.Node = function(opt_id) {
      * @type {Number}
      */
     this.scaleZ = 1;
+
+    /**
+     * Priority value for z sorting when zDepth is equal to another Node.
+     * @type {Number}
+     */
+    this.zPriority = 0;
 
     /**
      * Whether or not the Node should rotate about its local coordinate space relative to its current rotation.

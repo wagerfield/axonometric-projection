@@ -49,6 +49,12 @@ AP.Node = function(opt_id) {
     this.scaleZ = 1;
 
     /**
+     * Priority value for z sorting when zDepth is equal to another Node.
+     * @type {Number}
+     */
+    this.zPriority = 0;
+
+    /**
      * Whether or not the Node should rotate about its local coordinate space relative to its current rotation.
      * @type {Boolean}
      */
