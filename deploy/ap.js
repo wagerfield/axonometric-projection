@@ -2,6 +2,8 @@
 //
 // Copyright (C) 2012 Matthew Wagerfield
 //
+// Twitter: https://twitter.com/mwagerfield
+//
 // Permission is hereby granted, free of charge, to any
 // person obtaining a copy of this software and associated
 // documentation files (the "Software"), to deal in the
@@ -30,7 +32,6 @@
 /**
  * Defines the Axonometric Projection namespace for all the awesomeness to exist upon.
  * @author Matthew Wagerfield
- * @see https://twitter.com/mwagerfield
  */
 var AP = AP || {};
 
