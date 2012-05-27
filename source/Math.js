@@ -1,7 +1,6 @@
 /**
  * @class Math utilities for Axonometric Projection.
  * @author Matthew Wagerfield
- * @see http://twitter.com/mwagerfield
  */
 AP.Math = {
 

@@ -1,7 +1,6 @@
 /**
  * @class Quaternion utility for the rotation of an Axonometric Projection Node.
  * @author Matthew Wagerfield
- * @see http://twitter.com/mwagerfield
  *
  * Math taken from Quaternions: How by Eric Brown.
  * @see http://physicsforgames.blogspot.se/2010/02/quaternions.html

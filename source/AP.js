@@ -1,4 +1,8 @@
-//Axonometric Projection Namespace
+/**
+ * Defines the Axonometric Projection namespace for all the awesomeness to exist upon.
+ * @author Matthew Wagerfield
+ * @see https://twitter.com/mwagerfield
+ */
 var AP = AP || {};
 
 /**

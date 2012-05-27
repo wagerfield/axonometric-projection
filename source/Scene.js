@@ -1,7 +1,6 @@
 /**
  * @class Creates a Scene to for Nodes.
  * @author Matthew Wagerfield
- * @see http://twitter.com/mwagerfield
  *
  * @param {Number} opt_pitch The pitch angle of the scene in degrees.
  * @param {Number} opt_rotation The rotation angle of the scene in degrees.
@@ -57,23 +56,17 @@ AP.Scene = function(opt_pitch, opt_rotation) {
     this._yRatio = 0;
 
     /**
-     * Set the pitch of the Scene.
+     * Set the initial pitch of the Scene.
      */
     this.pitch(typeof opt_pitch === 'number' ? opt_pitch : 35);
 
     /**
-     * Set the rotation of the Scene.
+     * Set the initial rotation of the Scene.
      */
     this.rotate(typeof opt_rotation === 'number' ? opt_rotation : 45);
 };
 
 AP.Scene.prototype = {
-
-    /**
-     * Object type.
-     * @type {String}
-     */
-    TYPE: 'scene',
 
     /**
      * Sets the pitch of the Scene in degrees.
@@ -128,7 +121,7 @@ AP.Scene.prototype = {
      */
     addChild: function(node) {
 
-        if (!~this._children.indexOf(node) && node.TYPE === AP.Node.prototype.TYPE) {
+        if (!~this._children.indexOf(node) && node.type === AP.Node.prototype.type) {
             this._children.push(node);
             node._parent = this;
 
@@ -234,10 +227,32 @@ AP.Scene.prototype = {
 
         // Iterate through and update the zIndex property on each Node.
         for (i = 0, l = nodes.length; i < l; i++) {
-            nodes[i].zIndex = i;
+            nodes[i]._zIndex = i;
         }
 
         // Return the collected and z sorted nodes.
         return nodes;
     }
 };
+
+Object.defineProperties(AP.Scene.prototype, {
+
+    /**
+     * Object type.
+     * @type {String}
+     */
+    'type': {
+        value: 'scene'
+    },
+
+    /**
+     * List of child Nodes.
+     * @type {Array}
+     */
+    'children': {
+        enumerable: true,
+        get: function() {
+            return this._children;
+        }
+    }
+});

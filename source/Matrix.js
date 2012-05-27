@@ -1,7 +1,6 @@
 /**
  * @class 4x4 Matrix for Axonometric Projection Node transformations.
  * @author Matthew Wagerfield
- * @see http://twitter.com/mwagerfield
  *
  * Concepts and math inspired by and copied from gl-matrix.
  * @see https://github.com/toji/gl-matrix
