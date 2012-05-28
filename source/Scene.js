@@ -17,7 +17,7 @@ AP.Scene = function(opt_pitch, opt_rotation) {
      * List of child Nodes.
      * @type {Array}
      */
-    this._children = [];
+    this.children = [];
 
     /**
      * The rotation angle of the Scene in radians.
@@ -67,6 +67,12 @@ AP.Scene = function(opt_pitch, opt_rotation) {
 };
 
 AP.Scene.prototype = {
+
+    /**
+     * Object type.
+     * @type {String}
+     */
+    type: 'scene',
 
     /**
      * Sets the pitch of the Scene in degrees.
@@ -121,18 +127,18 @@ AP.Scene.prototype = {
      */
     addChild: function(node) {
 
-        if (!~this._children.indexOf(node) && node.type === AP.Node.prototype.type) {
-            this._children.push(node);
-            node._parent = this;
+        if (!~this.children.indexOf(node) && node.type === AP.Node.prototype.type) {
+            this.children.push(node);
+            node.parent = this;
 
             // Store a reference to this Scene.
             var scene = this;
 
             // Recursively set the Scene on each Node's children.
             var setScene = function(node) {
-                node._scene = scene;
-                for (var i = 0, l = node._children.length; i < l; i++) {
-                    setScene(node._children[i]);
+                node.scene = scene;
+                for (var i = 0, l = node.children.length; i < l; i++) {
+                    setScene(node.children[i]);
                 }
             };
 
@@ -153,15 +159,15 @@ AP.Scene.prototype = {
      */
     removeChild: function(node) {
 
-        if (~this._children.indexOf(node)) {
-            this._children.splice(this._children.indexOf(node), 1);
-            node._parent = null;
+        if (~this.children.indexOf(node)) {
+            this.children.splice(this.children.indexOf(node), 1);
+            node.parent = null;
 
             // Recursively void the Scene on each Node's children.
             var voidScene = function(node) {
-                node._scene = null;
-                for (var i = 0, l = node._children.length; i < l; i++) {
-                    voidScene(node._children[i]);
+                node.scene = null;
+                for (var i = 0, l = node.children.length; i < l; i++) {
+                    voidScene(node.children[i]);
                 }
             };
 
@@ -181,14 +187,14 @@ AP.Scene.prototype = {
         // Recursively calls the project method on a Node and its children.
         var project = function(node) {
             node.project(false);
-            for (var i = 0, l = node._children.length; i < l; i++) {
-                project(node._children[i]);
+            for (var i = 0, l = node.children.length; i < l; i++) {
+                project(node.children[i]);
             }
         };
 
         // Iterate through the Scene nodes and call the project function.
-        for (var i = 0, l = this._children.length; i < l; i++) {
-            project(this._children[i]);
+        for (var i = 0, l = this.children.length; i < l; i++) {
+            project(this.children[i]);
         }
     },
 
@@ -205,25 +211,25 @@ AP.Scene.prototype = {
         // Recursively collect each Nodes children.
         var collect = function(node) {
             nodes.push(node);
-            for (var i = 0, l = node._children.length; i < l; i++) {
-                collect(node._children[i]);
+            for (var i = 0, l = node.children.length; i < l; i++) {
+                collect(node.children[i]);
             }
         };
 
         // Collect all the Nodes in the Scene.
-        for (i = 0, l = this._children.length; i < l; i++) {
-            collect(this._children[i]);
+        for (i = 0, l = this.children.length; i < l; i++) {
+            collect(this.children[i]);
         }
 
         // Sorts the collected Nodes by their zDepth.
         var sortOnDepth = function(a, b) {
-            if (a._zDepth < b._zDepth) {
+            if (a.zDepth < b.zDepth) {
                 return -1;
             }
-            if (a._zDepth > b._zDepth) {
+            if (a.zDepth > b.zDepth) {
                 return 1;
             }
-            if (a._zDepth === b._zDepth) {
+            if (a.zDepth === b.zDepth) {
 
                 if (a.zPriority < b.zPriority) {
                     return -1;
@@ -240,32 +246,10 @@ AP.Scene.prototype = {
 
         // Iterate through and update the zIndex property on each Node.
         for (i = 0, l = nodes.length; i < l; i++) {
-            nodes[i]._zIndex = i;
+            nodes[i].zIndex = i;
         }
 
         // Return the collected and z sorted nodes.
         return nodes;
     }
 };
-
-Object.defineProperties(AP.Scene.prototype, {
-
-    /**
-     * Object type.
-     * @type {String}
-     */
-    'type': {
-        value: 'scene'
-    },
-
-    /**
-     * List of child Nodes.
-     * @type {Array}
-     */
-    'children': {
-        enumerable: true,
-        get: function() {
-            return this._children;
-        }
-    }
-});

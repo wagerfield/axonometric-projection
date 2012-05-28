@@ -461,7 +461,7 @@ AP.Scene = function(opt_pitch, opt_rotation) {
      * List of child Nodes.
      * @type {Array}
      */
-    this._children = [];
+    this.children = [];
 
     /**
      * The rotation angle of the Scene in radians.
@@ -511,6 +511,12 @@ AP.Scene = function(opt_pitch, opt_rotation) {
 };
 
 AP.Scene.prototype = {
+
+    /**
+     * Object type.
+     * @type {String}
+     */
+    type: 'scene',
 
     /**
      * Sets the pitch of the Scene in degrees.
@@ -565,18 +571,18 @@ AP.Scene.prototype = {
      */
     addChild: function(node) {
 
-        if (!~this._children.indexOf(node) && node.type === AP.Node.prototype.type) {
-            this._children.push(node);
-            node._parent = this;
+        if (!~this.children.indexOf(node) && node.type === AP.Node.prototype.type) {
+            this.children.push(node);
+            node.parent = this;
 
             // Store a reference to this Scene.
             var scene = this;
 
             // Recursively set the Scene on each Node's children.
             var setScene = function(node) {
-                node._scene = scene;
-                for (var i = 0, l = node._children.length; i < l; i++) {
-                    setScene(node._children[i]);
+                node.scene = scene;
+                for (var i = 0, l = node.children.length; i < l; i++) {
+                    setScene(node.children[i]);
                 }
             };
 
@@ -597,15 +603,15 @@ AP.Scene.prototype = {
      */
     removeChild: function(node) {
 
-        if (~this._children.indexOf(node)) {
-            this._children.splice(this._children.indexOf(node), 1);
-            node._parent = null;
+        if (~this.children.indexOf(node)) {
+            this.children.splice(this.children.indexOf(node), 1);
+            node.parent = null;
 
             // Recursively void the Scene on each Node's children.
             var voidScene = function(node) {
-                node._scene = null;
-                for (var i = 0, l = node._children.length; i < l; i++) {
-                    voidScene(node._children[i]);
+                node.scene = null;
+                for (var i = 0, l = node.children.length; i < l; i++) {
+                    voidScene(node.children[i]);
                 }
             };
 
@@ -625,14 +631,14 @@ AP.Scene.prototype = {
         // Recursively calls the project method on a Node and its children.
         var project = function(node) {
             node.project(false);
-            for (var i = 0, l = node._children.length; i < l; i++) {
-                project(node._children[i]);
+            for (var i = 0, l = node.children.length; i < l; i++) {
+                project(node.children[i]);
             }
         };
 
         // Iterate through the Scene nodes and call the project function.
-        for (var i = 0, l = this._children.length; i < l; i++) {
-            project(this._children[i]);
+        for (var i = 0, l = this.children.length; i < l; i++) {
+            project(this.children[i]);
         }
     },
 
@@ -649,25 +655,25 @@ AP.Scene.prototype = {
         // Recursively collect each Nodes children.
         var collect = function(node) {
             nodes.push(node);
-            for (var i = 0, l = node._children.length; i < l; i++) {
-                collect(node._children[i]);
+            for (var i = 0, l = node.children.length; i < l; i++) {
+                collect(node.children[i]);
             }
         };
 
         // Collect all the Nodes in the Scene.
-        for (i = 0, l = this._children.length; i < l; i++) {
-            collect(this._children[i]);
+        for (i = 0, l = this.children.length; i < l; i++) {
+            collect(this.children[i]);
         }
 
         // Sorts the collected Nodes by their zDepth.
         var sortOnDepth = function(a, b) {
-            if (a._zDepth < b._zDepth) {
+            if (a.zDepth < b.zDepth) {
                 return -1;
             }
-            if (a._zDepth > b._zDepth) {
+            if (a.zDepth > b.zDepth) {
                 return 1;
             }
-            if (a._zDepth === b._zDepth) {
+            if (a.zDepth === b.zDepth) {
 
                 if (a.zPriority < b.zPriority) {
                     return -1;
@@ -684,35 +690,13 @@ AP.Scene.prototype = {
 
         // Iterate through and update the zIndex property on each Node.
         for (i = 0, l = nodes.length; i < l; i++) {
-            nodes[i]._zIndex = i;
+            nodes[i].zIndex = i;
         }
 
         // Return the collected and z sorted nodes.
         return nodes;
     }
 };
-
-Object.defineProperties(AP.Scene.prototype, {
-
-    /**
-     * Object type.
-     * @type {String}
-     */
-    'type': {
-        value: 'scene'
-    },
-
-    /**
-     * List of child Nodes.
-     * @type {Array}
-     */
-    'children': {
-        enumerable: true,
-        get: function() {
-            return this._children;
-        }
-    }
-});
 
 /**
  * @class Creates a Node to be used in an Axonometric Scene.
@@ -727,6 +711,66 @@ AP.Node = function(opt_id) {
      * @type {Object}
      */
     this.id = opt_id;
+
+    /**
+     * The Scene that the Node is in.
+     * @type {AP.Scene}
+     */
+    this.scene = null;
+
+    /**
+     * Parent Node.
+     * @type {Object}
+     */
+    this.parent = null;
+
+    /**
+     * List of child Nodes.
+     * @type {Array}
+     */
+    this.children = [];
+
+    /**
+     * The projected x coordinate of the Node.
+     * @type {Number}
+     */
+    this.px = 0;
+
+    /**
+     * The projected y coordinate of the Node.
+     * @type {Number}
+     */
+    this.py = 0;
+
+    /**
+     * The x position of the Node vertex in the Scene.
+     * @type {Number}
+     */
+    this.vx = 0;
+
+    /**
+     * The y position of the Node vertex in the Scene.
+     * @type {Number}
+     */
+    this.vy = 0;
+
+    /**
+     * The z position of the Node vertex in the Scene.
+     * @type {Number}
+     */
+    this.vz = 0;
+
+    /**
+     * The z depth of the Node in the Scene.
+     * @type {Number}
+     */
+    this.zDepth = 0;
+
+    /**
+     * The z index of the Node in the Scene.
+     * @type {Number}
+     */
+    this.zIndex = 0;
 
     /**
      * The x position of the Node.
@@ -795,48 +839,6 @@ AP.Node = function(opt_id) {
     this._rotationZ = 0;
 
     /**
-     * The z depth of the Node in the Scene.
-     * @type {Number}
-     */
-    this._zDepth = 0;
-
-    /**
-     * The z index of the Node in the Scene.
-     * @type {Number}
-     */
-    this._zIndex = 0;
-
-    /**
-     * The projected x coordinate of the Node.
-     * @type {Number}
-     */
-    this._px = 0;
-
-    /**
-     * The projected y coordinate of the Node.
-     * @type {Number}
-     */
-    this._py = 0;
-
-    /**
-     * The x position of the Node vertex in the Scene.
-     * @type {Number}
-     */
-    this._vx = 0;
-
-    /**
-     * The y position of the Node vertex in the Scene.
-     * @type {Number}
-     */
-    this._vy = 0;
-
-    /**
-     * The z position of the Node vertex in the Scene.
-     * @type {Number}
-     */
-    this._vz = 0;
-
-    /**
      * The 3D Matrix for the Node.
      * @type {AP.Matrix}
      */
@@ -865,27 +867,15 @@ AP.Node = function(opt_id) {
      * @type {AP.Quaternion}
      */
     this._qs2 = AP.Quaternion.create();
-
-    /**
-     * The Scene that the Node is in.
-     * @type {AP.Scene}
-     */
-    this._scene = null;
-
-    /**
-     * Parent Node.
-     * @type {Object}
-     */
-    this._parent = null;
-
-    /**
-     * List of child Nodes.
-     * @type {Array}
-     */
-    this._children = [];
 };
 
 AP.Node.prototype = {
+
+    /**
+     * Object type.
+     * @type {String}
+     */
+    type: 'node',
 
     /**
      * Resets the Node properties.
@@ -896,9 +886,9 @@ AP.Node.prototype = {
         this.px = 0;
         this.py = 0;
 
-        this._vx = 0;
-        this._vy = 0;
-        this._vz = 0;
+        this.vx = 0;
+        this.vy = 0;
+        this.vz = 0;
 
         this.zIndex = 0;
 
@@ -914,7 +904,7 @@ AP.Node.prototype = {
         this._rotationY = 0;
         this._rotationZ = 0;
 
-        this._zDepth = 0;
+        this.zDepth = 0;
 
         AP.Matrix.identity(this._matrix);
         AP.Quaternion.identity(this._quaternion);
@@ -990,18 +980,18 @@ AP.Node.prototype = {
      */
     addChild: function(node) {
 
-        if (!~this._children.indexOf(node) && node.type === this.type) {
-            this._children.push(node);
-            node._parent = this;
+        if (!~this.children.indexOf(node) && node.type === this.type) {
+            this.children.push(node);
+            node.parent = this;
 
             // Store a reference to the Node's Scene.
-            var scene = this._scene;
+            var scene = this.scene;
 
             // Recursively set the Scene on each Nodes children.
             var setScene = function(node) {
-                node._scene = scene;
-                for (var i = 0, l = node._children.length; i < l; i++) {
-                    setScene(node._children[i]);
+                node.scene = scene;
+                for (var i = 0, l = node.children.length; i < l; i++) {
+                    setScene(node.children[i]);
                 }
             };
 
@@ -1022,15 +1012,15 @@ AP.Node.prototype = {
      */
     removeChild: function(node) {
 
-        if (~this._children.indexOf(node)) {
-            this._children.splice(this._children.indexOf(node), 1);
-            node._parent = null;
+        if (~this.children.indexOf(node)) {
+            this.children.splice(this.children.indexOf(node), 1);
+            node.parent = null;
 
             // Recursively void the Scene on each Node's children.
             var voidScene = function(node) {
-                node._scene = null;
-                for (var i = 0, l = node._children.length; i < l; i++) {
-                    voidScene(node._children[i]);
+                node.scene = null;
+                for (var i = 0, l = node.children.length; i < l; i++) {
+                    voidScene(node.children[i]);
                 }
             };
 
@@ -1058,14 +1048,14 @@ AP.Node.prototype = {
         if (bubble) {
 
             // Build the Nodes display stack.
-            var parent = this._parent,
+            var parent = this.parent,
                 chain = [this, parent],
                 error = parent === null,
                 node = null;
 
             // Iterate up through the display chain and store them.
             while (!error && parent.type !== AP.Scene.prototype.type) {
-                parent = parent._parent;
+                parent = parent.parent;
                 error = parent === null;
                 chain.push(parent);
             }
@@ -1087,8 +1077,8 @@ AP.Node.prototype = {
 
         } else {
 
-            if (this._parent.type === this.type) {
-                AP.Matrix.clone(this._parent._matrix, this._matrix);
+            if (this.parent.type === this.type) {
+                AP.Matrix.clone(this.parent._matrix, this._matrix);
             }
 
             // Apply the transformations of this Node to its Matrix.
@@ -1099,136 +1089,40 @@ AP.Node.prototype = {
         }
 
         // reset
-        this._px = this._py = this._zDepth = 0;
+        this.px = this.py = this.zDepth = 0;
 
         // vertex
-        this._vx = this._matrix[12];
-        this._vy = this._matrix[13];
-        this._vz = this._matrix[14];
+        this.vx = this._matrix[12];
+        this.vy = this._matrix[13];
+        this.vz = this._matrix[14];
 
         // x offset
-        this._px += this._vx * this._scene._cosRotation;
-        this._py += this._vx * this._scene._sinRotation;
+        this.px += this.vx * this.scene._cosRotation;
+        this.py += this.vx * this.scene._sinRotation;
 
         // y offset
-        this._px -= this._vz * this._scene._sinRotation;
-        this._py += this._vz * this._scene._cosRotation;
+        this.px -= this.vz * this.scene._sinRotation;
+        this.py += this.vz * this.scene._cosRotation;
 
         // pitch offset
-        this._py *= this._scene._pitchRatio;
+        this.py *= this.scene._pitchRatio;
 
         // z offset
-        this._py -= this._vy * this._scene._yRatio;
+        this.py -= this.vy * this.scene._yRatio;
 
         // z depth
-        this._zDepth += this._vx * this._scene._sinRotation;
-        this._zDepth += this._vz * this._scene._cosRotation;
-        this._zDepth *= this._scene._yRatio;
-        this._zDepth += this._vy * this._scene._pitchRatio;
+        this.zDepth += this.vx * this.scene._sinRotation;
+        this.zDepth += this.vz * this.scene._cosRotation;
+        this.zDepth *= this.scene._yRatio;
+        this.zDepth += this.vy * this.scene._pitchRatio;
 
         // origin offset
-        this._px += this._scene.origin.x;
-        this._py += this._scene.origin.y;
+        this.px += this.scene.origin.x;
+        this.py += this.scene.origin.y;
     }
 };
 
 Object.defineProperties(AP.Node.prototype, {
-
-    /**
-     * Object type.
-     * @type {String}
-     */
-    'type': {
-        value: 'node'
-    },
-
-    /**
-     * The Scene that the Node is in.
-     * @type {AP.Scene}
-     */
-    'scene': {
-        enumerable: true,
-        get: function() {
-            return this._scene;
-        }
-    },
-
-    /**
-     * Parent Node.
-     * @type {Object}
-     */
-    'parent': {
-        enumerable: true,
-        get: function() {
-            return this._parent;
-        }
-    },
-
-    /**
-     * List of child Nodes.
-     * @type {Array}
-     */
-    'children': {
-        enumerable: true,
-        get: function() {
-            return this._children;
-        }
-    },
-
-    /**
-     * The projected x coordinate of the Node.
-     * @type {Number}
-     */
-    'px': {
-        enumerable: true,
-        get: function() {
-            return this._px;
-        }
-    },
-
-    /**
-     * The projected y coordinate of the Node.
-     * @type {Number}
-     */
-    'py': {
-        enumerable: true,
-        get: function() {
-            return this._py;
-        }
-    },
-
-    /**
-     * The x position of the Node vertex in the Scene.
-     * @type {Number}
-     */
-    'vx': {
-        enumerable: true,
-        get: function() {
-            return this._vx;
-        }
-    },
-
-    /**
-     * The y position of the Node vertex in the Scene.
-     * @type {Number}
-     */
-    'vy': {
-        enumerable: true,
-        get: function() {
-            return this._vy;
-        }
-    },
-
-    /**
-     * The z position of the Node vertex in the Scene.
-     * @type {Number}
-     */
-    'vz': {
-        enumerable: true,
-        get: function() {
-            return this._vz;
-        }
-    },
 
     /**
      * The x rotation of the Node in degrees.
@@ -1240,14 +1134,7 @@ Object.defineProperties(AP.Node.prototype, {
             return this._rotationX;
         },
         set: function(value) {
-            if (this.localRotation) {
-                AP.Quaternion.fromEuler(this._qs1, value - this._rotationX, 0, 0);
-                AP.Quaternion.clone(this._quaternion, this._qs2);
-                AP.Quaternion.multiply(this._quaternion, this._qs1, this._qs2);
-            } else {
-                AP.Quaternion.fromEuler(this._quaternion, value, this._rotationY, this._rotationZ);
-            }
-            this._rotationX = value;
+            this.rotate(value, this._rotationY, this._rotationZ);
         }
     },
 
@@ -1261,14 +1148,7 @@ Object.defineProperties(AP.Node.prototype, {
             return this._rotationY;
         },
         set: function(value) {
-            if (this.localRotation) {
-                AP.Quaternion.fromEuler(this._qs1, 0, value - this._rotationY, 0);
-                AP.Quaternion.clone(this._quaternion, this._qs2);
-                AP.Quaternion.multiply(this._quaternion, this._qs1, this._qs2);
-            } else {
-                AP.Quaternion.fromEuler(this._quaternion, this._rotationX, value, this._rotationZ);
-            }
-            this._rotationY = value;
+            this.rotate(this._rotationX, value, this._rotationZ);
         }
     },
 
@@ -1282,25 +1162,7 @@ Object.defineProperties(AP.Node.prototype, {
             return this._rotationZ;
         },
         set: function(value) {
-            if (this.localRotation) {
-                AP.Quaternion.fromEuler(this._qs1, 0, 0, value - this._rotationZ);
-                AP.Quaternion.clone(this._quaternion, this._qs2);
-                AP.Quaternion.multiply(this._quaternion, this._qs1, this._qs2);
-            } else {
-                AP.Quaternion.fromEuler(this._quaternion, this._rotationX, this._rotationY, value);
-            }
-            this._rotationZ = value;
-        }
-    },
-
-    /**
-     * The z index of the Node in the Scene.
-     * @type {Number}
-     */
-    'zIndex': {
-        enumerable: true,
-        get: function() {
-            return this._zIndex;
+            this.rotate(this._rotationX, this._rotationY, value);
         }
     }
 });
