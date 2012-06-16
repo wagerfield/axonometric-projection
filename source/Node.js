@@ -61,6 +61,18 @@ AP.Node = function(opt_id) {
     this.vz = 0;
 
     /**
+     * Priority value for z sorting when zDepth is equal to another Node.
+     * @type {Number}
+     */
+    this.zPriority = 0;
+
+    /**
+     * Value that is added to the z depth of the Node when sorting Nodes in a Scene.
+     * @type {Number}
+     */
+    this.zOffset = 0;
+
+    /**
      * The z depth of the Node in the Scene.
      * @type {Number}
      */
@@ -108,11 +120,6 @@ AP.Node = function(opt_id) {
      */
     this.scaleZ = 1;
 
-    /**
-     * Priority value for z sorting when zDepth is equal to another Node.
-     * @type {Number}
-     */
-    this.zPriority = 0;
 
     /**
      * Whether or not the Node should rotate about its local coordinate space relative to its current rotation.
@@ -415,6 +422,7 @@ AP.Node.prototype = {
         this.zDepth += this.vz * this.scene._cosRotation;
         this.zDepth *= this.scene._yRatio;
         this.zDepth += this.vy * this.scene._pitchRatio;
+        this.zDepth += this.zOffset;
 
         // origin offset
         this.px += this.scene.origin.x;
