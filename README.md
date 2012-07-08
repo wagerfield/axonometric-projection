@@ -1,19 +1,19 @@
 #Axonometric Projection Engine
 
-A simple, lightweight 2.5D [Axonometric](wiki) Projection Engine (**APE**). A demo of **APE** in action can be found [here](demo).
+A simple, lightweight 2.5D [Axonometric][wiki] Projection Engine (**APE**). A demo of **APE** in action can be found [here][demo].
 
 * **APE** consists of just 2 components - **Scene** & **Nodes**:
 
 		var myScene = new AP.Scene();
 		var myNode = new AP.Node();
 
-* A **Node** can be added as a **child** to a **Scene**, or to another **Node**: 
+* A **Node** can be added as a **child** to a **Scene**, or to another **Node**:
 
 		myScene.addChild(myNode);
 		myParentNode.addChild(myChildNode);
 
 * A **Scene** can be both **rotated** & **pitched**:
-		
+
 		myScene.rotate(45);
 		myScene.pitch(35);
 
@@ -24,7 +24,7 @@ A simple, lightweight 2.5D [Axonometric](wiki) Projection Engine (**APE**). A de
 		myNode.rotate(45, 90, 0);
 		myNode.scale(0.5, 2, 1);
 
-		// Transformation properties		
+		// Transformation properties
 		myNode.x = 100;
 		myNode.y = 200;
 		myNode.z = 300;
@@ -37,30 +37,30 @@ A simple, lightweight 2.5D [Axonometric](wiki) Projection Engine (**APE**). A de
 
 * Nested **Nodes** inherit their **parent's transformations**.
 * **Nodes** can also be configured to rotate about their **local** coordinate space. This property is useful for *walking* or *flying* Nodes around a **Scene**:
-		
+
 		myNode.localRotation = true;
 
 * **Nodes** are projected from their **3D Scene** coordinate to a **2D Screen** coordinate by calling:
-		
+
 		// Project a single Node instance
 		myNode.project();
 
 		// Recursively loop through all Nodes in a Scene, calling project() on each of them
 		myScene.projectNodes();
-		
+
 * Once projected, you can use the **Node's** **.px** and **.py** properties:
-		
+
 		// Position a DOM element
 		myElement.style.left = myNode.px + 'px';
 		myElement.style.top = myNode.py + 'px';
-		
+
 		Draw a line to a canvas
 		myCanvasContext.drawLine(myNode.px, myNode.py);
 
 * **Nodes** can also be sorted by **z-depth**:
 
 		myScene.sortNodes();
-		
+
 * This method calculates and incrementally sets the zIndex property on every **Node** in a **Scene** so that you can easily set a DOM element’s **z-index** property:
 
 		myElement.style.zIndex = myNode.zIndex;
@@ -114,11 +114,11 @@ context.lineTo(nodeB.px, nodeB.py);
 context.stroke();
 ```
 
-For a more complex example of what can be done, check out the demo [here](demo).
+For a more complex example of what can be done with **APE**, check out the demo [here][demo].
 
 ##Author:
 
-Matthew Wagerfield: [@mwagerfield](twitter)
+Matthew Wagerfield: [@mwagerfield][twitter]
 
 ##License
 
