@@ -1,5 +1,5 @@
 /**
- * Build script for Axonometric Projection.
+ * Build script for Axonometric Projection Engine.
  *
  * @author Matthew Wagerfield
  * @author Carl Calderon
@@ -9,9 +9,9 @@ var FILE_ENCODING     = 'utf-8',
     LICENSE_FILE      = '../LICENSE',
     SOURCE_DIRECTORY  = '../source',
     DEPLOY_DIRECTORY  = '../deploy',
-    CONCATENATED_FILE = DEPLOY_DIRECTORY + '/ap.js',
-    MINIFIED_FILE     = DEPLOY_DIRECTORY + '/ap.min.js',
-    SEPARATOR         = '\n\n',
+    CONCATENATED_FILE = DEPLOY_DIRECTORY + '/ape.js',
+    MINIFIED_FILE     = DEPLOY_DIRECTORY + '/ape.min.js',
+    SEPARATOR         = '\n',
 
     fs      = require('fs'),
     uglify  = require('uglify-js'),
@@ -73,7 +73,7 @@ function prepend(content, to) {
 
 // combine files
 content = concatenate([
-    SOURCE_DIRECTORY + '/AP.js',
+    SOURCE_DIRECTORY + '/APE.js',
     SOURCE_DIRECTORY + '/Math.js',
     SOURCE_DIRECTORY + '/Matrix.js',
     SOURCE_DIRECTORY + '/Quaternion.js',

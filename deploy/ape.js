@@ -28,24 +28,23 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //
 //============================================================
-
 /**
- * Defines the Axonometric Projection namespace for all the awesomeness to exist upon.
+ * Defines the Axonometric Projection Engine namespace for all the awesomeness to exist upon.
  * @author Matthew Wagerfield
  */
-var AP = AP || {};
+var APE = APE || {};
 
 /**
  * Returns the type of Array that is avaialble.
  * @type {Float32Array|Array}
  */
-AP.Array = typeof Float32Array === 'function' ? Float32Array : Array;
+APE.Array = typeof Float32Array === 'function' ? Float32Array : Array;
 
 /**
- * @class Math utilities for Axonometric Projection.
+ * @class Math utilities.
  * @author Matthew Wagerfield
  */
-AP.Math = {
+APE.Math = {
 
     /**
      * Cache PI / 360 for calculating a Quaternion from an Euler angle.
@@ -67,7 +66,7 @@ AP.Math = {
 
     /**
      * Converts degrees to radians.
-     * @this {AP.Math}
+     * @this {APE.Math}
      *
      * @param {Number} degrees Angle in degrees to convert.
      *
@@ -80,7 +79,7 @@ AP.Math = {
 
     /**
      * Converts radians to degrees.
-     * @this {AP.Math}
+     * @this {APE.Math}
      *
      * @param {Number} radians Angle in radians to convert.
      *
@@ -93,23 +92,23 @@ AP.Math = {
 };
 
 /**
- * @class 4x4 Matrix for Axonometric Projection Node transformations.
+ * @class 4x4 Matrix for transformations.
  * @author Matthew Wagerfield
  *
  * Concepts and math inspired by and copied from gl-matrix.
  * @see https://github.com/toji/gl-matrix
  */
-AP.Matrix = {
+APE.Matrix = {
 
     /**
      * Creates a new Matrix array and sets it to an identity.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @return {Float32Array|Array} 4x4 Matrix.
      */
     create: function() {
 
-        var matrix = new AP.Array(16);
+        var matrix = new APE.Array(16);
 
         this.identity(matrix);
 
@@ -118,7 +117,7 @@ AP.Matrix = {
 
     /**
      * Resets the Matrix components to identity values.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} target The Matrix to set the values of.
      *
@@ -151,7 +150,7 @@ AP.Matrix = {
 
     /**
      * Clones a master Matrix to a slave and returns the slave.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} source The Matrix to copy the values from.
      * @param {Float32Array|Array} target The Matrix to copy the values to.
@@ -185,7 +184,7 @@ AP.Matrix = {
 
     /**
      * Multiplies two Matrices together and returns the first one.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} a The first Matrix to multiply by.
      * @param {Float32Array|Array} b The second Matrix to multiply by.
@@ -229,7 +228,7 @@ AP.Matrix = {
 
     /**
      * Translates a Matrix in all axis.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} matrix The Matrix to translate.
      * @param {Float32Array|Array} slave A slave Matrix to manipulate.
@@ -254,7 +253,7 @@ AP.Matrix = {
 
     /**
      * Scales a Matrix in all axis.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} matrix The Matrix to scale.
      * @param {Float32Array|Array} slave A slave Matrix to manipulate.
@@ -279,23 +278,23 @@ AP.Matrix = {
 };
 
 /**
- * @class Quaternion utility for the rotation of an Axonometric Projection Node.
+ * @class Quaternion utility for the rotation calculations.
  * @author Matthew Wagerfield
  *
  * Math taken from Quaternions: How by Eric Brown.
  * @see http://physicsforgames.blogspot.se/2010/02/quaternions.html
  */
-AP.Quaternion = {
+APE.Quaternion = {
 
     /**
      * Creates a new Quaternion array.
-     * @this {AP.Quaternion}
+     * @this {APE.Quaternion}
      *
      * @return {Float32Array|Array} Quaternion.
      */
     create: function() {
 
-        var quaternion = new AP.Array(4);
+        var quaternion = new APE.Array(4);
 
         this.identity(quaternion);
 
@@ -304,7 +303,7 @@ AP.Quaternion = {
 
     /**
      * Resets the Quaternion components to identity values.
-     * @this {AP.Quaternion}
+     * @this {APE.Quaternion}
      *
      * @param {Float32Array|Array} target The Quaternion to set the values of.
      *
@@ -322,7 +321,7 @@ AP.Quaternion = {
 
     /**
      * Clones a master Quaternion to a slave Quaternion and returns the slave.
-     * @this {AP.Quaternion}
+     * @this {APE.Quaternion}
      *
      * @param {Float32Array|Array} source The Quaternion to copy the values from.
      * @param {Float32Array|Array} target The Quaternion to clone the values to.
@@ -341,7 +340,7 @@ AP.Quaternion = {
 
     /**
      * Multiplies two Quaternions together and returns the resultant Quaternion.
-     * @this {AP.Quaternion}
+     * @this {APE.Quaternion}
      *
      * @param {Float32Array|Array} target The Quaternion to apply the output to.
      * @param {Float32Array|Array} a The first Quaternion to multiply by.
@@ -364,7 +363,7 @@ AP.Quaternion = {
 
     /**
      * Configures a provided Quaternion from an Euler angle.
-     * @this {AP.Quaternion}
+     * @this {APE.Quaternion}
      *
      * @param {Float32Array|Array} target The Quaternion to apply the calculated values to.
      * @param {Float32Array|Array} x The x rotation in radians.
@@ -375,9 +374,9 @@ AP.Quaternion = {
      */
     fromEuler: function(target, x, y, z) {
 
-        var ax = x*AP.Math.ETQ,
-            ay = y*AP.Math.ETQ,
-            az = z*AP.Math.ETQ,
+        var ax = x*APE.Math.ETQ,
+            ay = y*APE.Math.ETQ,
+            az = z*APE.Math.ETQ,
 
             cx = Math.cos( ax ),
             sx = Math.sin( ax ),
@@ -399,7 +398,7 @@ AP.Quaternion = {
 
     /**
      * Sets the value of a Matrix from a Quaternion.
-     * @this {AP.Quaternion}
+     * @this {APE.Quaternion}
      *
      * @param {Float32Array|Array} matrix The Matrix to apply the values to.
      * @param {Float32Array|Array} q The Quaternion to convert.
@@ -408,7 +407,7 @@ AP.Quaternion = {
      */
     toMatrix: function(matrix, q) {
 
-        AP.Matrix.identity(matrix);
+        APE.Matrix.identity(matrix);
 
         var xs = q[0]*q[0],
             ys = q[1]*q[1],
@@ -443,13 +442,13 @@ AP.Quaternion = {
 };
 
 /**
- * @class Creates a Scene to for Nodes.
+ * @class Creates a Scene for Nodes to exist within.
  * @author Matthew Wagerfield
  *
  * @param {Number} opt_pitch The pitch angle of the scene in degrees.
  * @param {Number} opt_rotation The rotation angle of the scene in degrees.
  */
-AP.Scene = function(opt_pitch, opt_rotation) {
+APE.Scene = function(opt_pitch, opt_rotation) {
 
     /**
      * The origin of the Scene coordinate system.
@@ -510,7 +509,7 @@ AP.Scene = function(opt_pitch, opt_rotation) {
     this.rotate(typeof opt_rotation === 'number' ? opt_rotation : 45);
 };
 
-AP.Scene.prototype = {
+APE.Scene.prototype = {
 
     /**
      * Object type.
@@ -520,33 +519,33 @@ AP.Scene.prototype = {
 
     /**
      * Sets the pitch of the Scene in degrees.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {Number} degrees The angle to pitch the Scene to.
      */
     pitch: function(degrees) {
 
-        this._pitchAngle = AP.Math.degreesToRadians(degrees);
+        this._pitchAngle = APE.Math.degreesToRadians(degrees);
         this._pitchRatio = Math.sin(this._pitchAngle);
         this._yRatio = Math.cos(this._pitchAngle);
     },
 
     /**
      * Sets the rotation of the Scene in degrees.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {Number} degrees The angle to rotate the Scene to.
      */
     rotate: function(degrees) {
 
-        this._rotationAngle = AP.Math.degreesToRadians(degrees);
+        this._rotationAngle = APE.Math.degreesToRadians(degrees);
         this._sinRotation = Math.sin(this._rotationAngle);
         this._cosRotation = Math.cos(this._rotationAngle);
     },
 
     /**
      * Sets the origin offset of the 2D coordinate system for the Scene.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {Number} x The x offset of the Scene origin.
      * @param {Number} y The y offset of the Scene origin.
@@ -563,7 +562,7 @@ AP.Scene.prototype = {
 
     /**
      * Adds a Node to the Scene.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {AxonometricProjectionNode} node Node to add to the Scene.
      *
@@ -571,7 +570,7 @@ AP.Scene.prototype = {
      */
     addChild: function(node) {
 
-        if (!~this.children.indexOf(node) && node.type === AP.Node.prototype.type) {
+        if (!~this.children.indexOf(node) && node.type === APE.Node.prototype.type) {
             this.children.push(node);
             node.parent = this;
 
@@ -595,7 +594,7 @@ AP.Scene.prototype = {
 
     /**
      * Removes a Node from the Scene.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {AxonometricProjectionNode} node Node to remove from the Scene.
      *
@@ -624,7 +623,7 @@ AP.Scene.prototype = {
 
     /**
      * Iterates through all the Nodes in the Scene and updates their px and py coordinates.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      */
     projectNodes: function() {
 
@@ -644,7 +643,7 @@ AP.Scene.prototype = {
 
     /**
      * Iterates through all the Nodes in the Scene and updates their zIndex property.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @return {Array} Sorted nodes.
      */
@@ -699,12 +698,12 @@ AP.Scene.prototype = {
 };
 
 /**
- * @class Creates a Node to be used in an Axonometric Scene.
+ * @class Creates a Node to be used in a Scene.
  * @author Matthew Wagerfield
  *
  * @param {String} opt_id Optional ID for the Node.
  */
-AP.Node = function(opt_id) {
+APE.Node = function(opt_id) {
 
     /**
      * An ID for the Node.
@@ -714,7 +713,7 @@ AP.Node = function(opt_id) {
 
     /**
      * The Scene that the Node is in.
-     * @type {AP.Scene}
+     * @type {APE.Scene}
      */
     this.scene = null;
 
@@ -847,36 +846,36 @@ AP.Node = function(opt_id) {
 
     /**
      * The 3D Matrix for the Node.
-     * @type {AP.Matrix}
+     * @type {APE.Matrix}
      */
-    this._matrix = AP.Matrix.create();
+    this._matrix = APE.Matrix.create();
 
     /**
      * A Quaternion for rotation.
-     * @type {AP.Quaternion}
+     * @type {APE.Quaternion}
      */
-    this._quaternion = AP.Quaternion.create();
+    this._quaternion = APE.Quaternion.create();
 
     /**
      * A slave Matrix for transformation calculations.
-     * @type {AP.Matrix}
+     * @type {APE.Matrix}
      */
-    this._ms1 = AP.Matrix.create();
+    this._ms1 = APE.Matrix.create();
 
     /**
      * A slave Quaternion for rotation calculations.
-     * @type {AP.Quaternion}
+     * @type {APE.Quaternion}
      */
-    this._qs1 = AP.Quaternion.create();
+    this._qs1 = APE.Quaternion.create();
 
     /**
      * A slave Quaternion for rotation calculations.
-     * @type {AP.Quaternion}
+     * @type {APE.Quaternion}
      */
-    this._qs2 = AP.Quaternion.create();
+    this._qs2 = APE.Quaternion.create();
 };
 
-AP.Node.prototype = {
+APE.Node.prototype = {
 
     /**
      * Object type.
@@ -886,7 +885,7 @@ AP.Node.prototype = {
 
     /**
      * Resets the Node properties.
-     * @this {AP.Node}
+     * @this {APE.Node}
      */
     reset: function() {
 
@@ -913,13 +912,13 @@ AP.Node.prototype = {
 
         this.zDepth = 0;
 
-        AP.Matrix.identity(this._matrix);
-        AP.Quaternion.identity(this._quaternion);
+        APE.Matrix.identity(this._matrix);
+        APE.Quaternion.identity(this._quaternion);
     },
 
     /**
      * Translates the Node in all axis.
-     * @this {AP.Node}
+     * @this {APE.Node}
      *
      * @param {Number} x The amount to translate the Node by in x.
      * @param {Number} y The amount to translate the Node by in y.
@@ -934,7 +933,7 @@ AP.Node.prototype = {
 
     /**
      * Rotates the Node in all axis.
-     * @this {AP.Node}
+     * @this {APE.Node}
      *
      * @param {Number} x The amount to scale the Node by along its x axis.
      * @param {Number} y The amount to scale the Node by along its y axis.
@@ -949,7 +948,7 @@ AP.Node.prototype = {
 
     /**
      * Rotates the Node in all axis.
-     * @this {AP.Node}
+     * @this {APE.Node}
      *
      * @param {Number} x The amount to rotate the Node in its x axis.
      * @param {Number} y The amount to rotate the Node in its y axis.
@@ -963,13 +962,13 @@ AP.Node.prototype = {
                 dy = y - this._rotationY,
                 dz = z - this._rotationZ;
 
-            AP.Quaternion.fromEuler(this._qs1, dx, dy, dz);
-            AP.Quaternion.clone(this._quaternion, this._qs2);
-            AP.Quaternion.multiply(this._quaternion, this._qs1, this._qs2);
+            APE.Quaternion.fromEuler(this._qs1, dx, dy, dz);
+            APE.Quaternion.clone(this._quaternion, this._qs2);
+            APE.Quaternion.multiply(this._quaternion, this._qs1, this._qs2);
 
         } else {
 
-            AP.Quaternion.fromEuler(this._quaternion, x, y, z);
+            APE.Quaternion.fromEuler(this._quaternion, x, y, z);
         }
 
         this._rotationX = x;
@@ -979,11 +978,11 @@ AP.Node.prototype = {
 
     /**
      * Adds a child Node.
-     * @this {AP.Node}
+     * @this {APE.Node}
      *
-     * @param {AP.Node} node Node to add as a child.
+     * @param {APE.Node} node Node to add as a child.
      *
-     * @return {AP.Node} The added Node.
+     * @return {APE.Node} The added Node.
      */
     addChild: function(node) {
 
@@ -1011,11 +1010,11 @@ AP.Node.prototype = {
 
     /**
      * Removes a child Node.
-     * @this {AP.Node}
+     * @this {APE.Node}
      *
-     * @param {AP.Node} node Child Node to remove.
+     * @param {APE.Node} node Child Node to remove.
      *
-     * @return {AP.Node} The removed Node.
+     * @return {APE.Node} The removed Node.
      */
     removeChild: function(node) {
 
@@ -1040,7 +1039,7 @@ AP.Node.prototype = {
 
     /**
      * Performs the projection math on the Node, updating its uv coordinates.
-     * @this {AP.Node}
+     * @this {APE.Node}
      *
      * @param {Boolean} bubble Whether or not the Node should bubble up through and calculate its parent matrices. Defaults to true.
      */
@@ -1050,7 +1049,7 @@ AP.Node.prototype = {
         bubble = typeof bubble === 'boolean' ? bubble : true;
 
         // Reset the matrix to identity values.
-        AP.Matrix.identity(this._matrix);
+        APE.Matrix.identity(this._matrix);
 
         if (bubble) {
 
@@ -1061,7 +1060,7 @@ AP.Node.prototype = {
                 node = null;
 
             // Iterate up through the display chain and store them.
-            while (!error && parent.type !== AP.Scene.prototype.type) {
+            while (!error && parent.type !== APE.Scene.prototype.type) {
                 parent = parent.parent;
                 error = parent === null;
                 chain.push(parent);
@@ -1076,23 +1075,23 @@ AP.Node.prototype = {
                 node = chain[i];
 
                 // Apply the transformations of this Node to its Matrix.
-                AP.Matrix.translate(this._matrix, this._ms1, node.x, node.y, node.z);
-                AP.Quaternion.toMatrix(this._ms1, node._quaternion);
-                AP.Matrix.multiply(this._matrix, this._ms1);
-                AP.Matrix.scale(this._matrix, this._ms1, node.scaleX, node.scaleY, node.scaleZ);
+                APE.Matrix.translate(this._matrix, this._ms1, node.x, node.y, node.z);
+                APE.Quaternion.toMatrix(this._ms1, node._quaternion);
+                APE.Matrix.multiply(this._matrix, this._ms1);
+                APE.Matrix.scale(this._matrix, this._ms1, node.scaleX, node.scaleY, node.scaleZ);
             }
 
         } else {
 
             if (this.parent.type === this.type) {
-                AP.Matrix.clone(this.parent._matrix, this._matrix);
+                APE.Matrix.clone(this.parent._matrix, this._matrix);
             }
 
             // Apply the transformations of this Node to its Matrix.
-            AP.Matrix.translate(this._matrix, this._ms1, this.x, this.y, this.z);
-            AP.Quaternion.toMatrix(this._ms1, this._quaternion);
-            AP.Matrix.multiply(this._matrix, this._ms1);
-            AP.Matrix.scale(this._matrix, this._ms1, this.scaleX, this.scaleY, this.scaleZ);
+            APE.Matrix.translate(this._matrix, this._ms1, this.x, this.y, this.z);
+            APE.Quaternion.toMatrix(this._ms1, this._quaternion);
+            APE.Matrix.multiply(this._matrix, this._ms1);
+            APE.Matrix.scale(this._matrix, this._ms1, this.scaleX, this.scaleY, this.scaleZ);
         }
 
         // reset
@@ -1130,7 +1129,7 @@ AP.Node.prototype = {
     }
 };
 
-Object.defineProperties(AP.Node.prototype, {
+Object.defineProperties(APE.Node.prototype, {
 
     /**
      * The x rotation of the Node in degrees.

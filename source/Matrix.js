@@ -1,21 +1,21 @@
 /**
- * @class 4x4 Matrix for Axonometric Projection Node transformations.
+ * @class 4x4 Matrix for transformations.
  * @author Matthew Wagerfield
  *
  * Concepts and math inspired by and copied from gl-matrix.
  * @see https://github.com/toji/gl-matrix
  */
-AP.Matrix = {
+APE.Matrix = {
 
     /**
      * Creates a new Matrix array and sets it to an identity.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @return {Float32Array|Array} 4x4 Matrix.
      */
     create: function() {
 
-        var matrix = new AP.Array(16);
+        var matrix = new APE.Array(16);
 
         this.identity(matrix);
 
@@ -24,7 +24,7 @@ AP.Matrix = {
 
     /**
      * Resets the Matrix components to identity values.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} target The Matrix to set the values of.
      *
@@ -57,7 +57,7 @@ AP.Matrix = {
 
     /**
      * Clones a master Matrix to a slave and returns the slave.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} source The Matrix to copy the values from.
      * @param {Float32Array|Array} target The Matrix to copy the values to.
@@ -91,7 +91,7 @@ AP.Matrix = {
 
     /**
      * Multiplies two Matrices together and returns the first one.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} a The first Matrix to multiply by.
      * @param {Float32Array|Array} b The second Matrix to multiply by.
@@ -135,7 +135,7 @@ AP.Matrix = {
 
     /**
      * Translates a Matrix in all axis.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} matrix The Matrix to translate.
      * @param {Float32Array|Array} slave A slave Matrix to manipulate.
@@ -160,7 +160,7 @@ AP.Matrix = {
 
     /**
      * Scales a Matrix in all axis.
-     * @this {AP.Matrix}
+     * @this {APE.Matrix}
      *
      * @param {Float32Array|Array} matrix The Matrix to scale.
      * @param {Float32Array|Array} slave A slave Matrix to manipulate.

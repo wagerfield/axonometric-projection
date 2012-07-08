@@ -1,19 +1,81 @@
-#Axonometric Projection
+#Axonometric Projection Engine
 
-If you haven't seen the demo, you probably should. You can find it [here](demo).
+A simple, lightweight 2.5D [Axonometric](wiki) Projection Engine (**APE**). A demo of **APE** in action can be found [here](demo).
 
-##What is it?
+* **APE** consists of just 2 components - **Scene** & **Nodes**:
 
-A simple, lightweight 2.5D [Axonometric](wiki) Projection Engine consisting of just 2 components - a **Scene**: `var myScene = new AP.Scene();` & **Nodes**: `var myNode = new AP.Node();`.
+		var myScene = new AP.Scene();
+		var myNode = new AP.Node();
 
-* A **Node** can be added as a **child** to a **Scene**: `myScene.addChild(myNode);`, or to another **Node**: `myParentNode.addChild(myChildNode);`.
-* A **Scene** can be both **rotated**: `myScene.rotate(45);` and **pitched**: `myScene.pitch(35);`. This would give you an isometric scene.
-* A **Node** can be **translated**: `myNode.translate(50, 200, 0);`, **rotated**: `myNode.rotate(45, 90, 0);` and **scaled**: `myNode.scale(0.5, 2, 1);`. Each of these **9 transformtion** properties can also be set directly on the **Node** such that: `myNode.x = 100; myNode.scaleY = 2; myNode.rotationZ = 45;`.
-* **Nodes** can also be configured to rotate about their **local** coordinate space by setting: `myNode.localRotation = true;`. This is useful for *walking* or *flying* Nodes around a **Scene**.
+* A **Node** can be added as a **child** to a **Scene**, or to another **Node**: 
+
+		myScene.addChild(myNode);
+		myParentNode.addChild(myChildNode);
+
+* A **Scene** can be both **rotated** & **pitched**:
+		
+		myScene.rotate(45);
+		myScene.pitch(35);
+
+* A **Node** can be **translated**, **rotated** & **scaled**:
+
+		// Transformation methods
+		myNode.translate(50, 200, 0);
+		myNode.rotate(45, 90, 0);
+		myNode.scale(0.5, 2, 1);
+
+		// Transformation properties		
+		myNode.x = 100;
+		myNode.y = 200;
+		myNode.z = 300;
+		myNode.scaleX = 2;
+		myNode.scaleY = 2;
+		myNode.scaleZ = 2;
+		myNode.rotationX = 45;
+		myNode.rotationY = 15;
+		myNode.rotationZ = 145;
+
 * Nested **Nodes** inherit their **parent's transformations**.
-* **Nodes** are projected from their **3D Scene coordinate** to a **2D Screen coordinate** by calling either: `myScene.projectNodes();` - which recursively loops through and calls `.project();` on all the **Nodes** in the **Scene**, or `myNode.project();` - which calculates the projected coordinates for just the **Node** instance.
-* Once projected, you can use the **Node's** **.px** and **.py** properties to position your **element**: `myElement.style.left = myNode.px + 'px'; myElement.style.top = myNode.py + 'px';` or draw a line to a **canvas**: `myCanvasContext.drawLine(myNode.px, myNode.py);`.
-* **Nodes** can also be sorted by **z-depth**: `myScene.sortNodes();`. This method calculates and incrementally sets the zIndex property on every **Node** in the **Scene** so that you can easily set a DOM element’s **z-index**: `myElement.style.zIndex = myNode.zIndex;`. In special cases, you may want to take control over the **z-order** of **Nodes** that have **equal z-depths**. To accomplish this, **Nodes** have a **z-priority** property that can be assigned like so: `myForegroundNode.zPriority = 1; myBackgroundNode.zPriority = 0;`. This configuration would result in **myForegroundNode** always having a higher **zIndex** than **myBackgroundNode** when their **zDepths** are **equal**. Furthermore, you can also manipulate the calculated **zDepth** property of each **Node** by specifying a value for the **z-offset** property: `myNode.zOffset = 100;`. This would add an additional *100 units* to the calculated **z-depth** value, *pushing* the **Node** up the stack when sorting **Nodes** in the **Scene**.
+* **Nodes** can also be configured to rotate about their **local** coordinate space. This property is useful for *walking* or *flying* Nodes around a **Scene**:
+		
+		myNode.localRotation = true;
+
+* **Nodes** are projected from their **3D Scene** coordinate to a **2D Screen** coordinate by calling:
+		
+		// Project a single Node instance
+		myNode.project();
+
+		// Recursively loop through all Nodes in a Scene, calling project() on each of them
+		myScene.projectNodes();
+		
+* Once projected, you can use the **Node's** **.px** and **.py** properties:
+		
+		// Position a DOM element
+		myElement.style.left = myNode.px + 'px';
+		myElement.style.top = myNode.py + 'px';
+		
+		Draw a line to a canvas
+		myCanvasContext.drawLine(myNode.px, myNode.py);
+
+* **Nodes** can also be sorted by **z-depth**:
+
+		myScene.sortNodes();
+		
+* This method calculates and incrementally sets the zIndex property on every **Node** in a **Scene** so that you can easily set a DOM element’s **z-index** property:
+
+		myElement.style.zIndex = myNode.zIndex;
+
+* In special cases, you may want to take control over the **z-order** of **Nodes** that have **equal z-depths**. To accomplish this, **Nodes** have a **z-priority** property that can be assigned like so:
+
+		myForegroundNode.zPriority = 1;
+		myBackgroundNode.zPriority = 0;
+
+* This configuration would result in **myForegroundNode** always having a higher **zIndex** than **myBackgroundNode** when their **zDepths** are **equal**.
+* Furthermore, you can also manipulate the calculated **zDepth** property of each **Node** by specifying a value for the **z-offset** property:
+
+		myNode.zOffset = 100;
+
+* This would add an additional *100 units* to the calculated **z-depth** value, *pushing* the **Node** up the stack when sorting **Nodes** in the **Scene**.
 
 ##Example:
 
@@ -23,9 +85,9 @@ var canvas = document.getElementById('canvas');
 var canvasWidth = parseInt(canvas.attributes.width.value, 10);
 var canvasHeight = parseInt(canvas.attributes.height.value, 10);
 var context = canvas.getContext('2d');
-var scene = new AP.Scene();
-var nodeA = new AP.Node();
-var nodeB = new AP.Node();
+var scene = new APE.Scene();
+var nodeA = new APE.Node();
+var nodeB = new APE.Node();
 
 // Configure the scene.
 scene.setOrigin(canvasWidth/2, canvasHeight/2);
@@ -62,7 +124,7 @@ Matthew Wagerfield: [@mwagerfield](twitter)
 
 Licensed under [MIT](mit). Enjoy.
 
-[demo]: http://matthewwagerfield.github.com/Axonometric-Projection/
+[demo]: http://matthewwagerfield.github.com/ape/
 [wiki]: http://en.wikipedia.org/wiki/Axonometric_projection
 [twitter]: http://twitter.com/mwagerfield
 [mit]: http://www.opensource.org/licenses/mit-license.php

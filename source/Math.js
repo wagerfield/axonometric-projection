@@ -1,8 +1,8 @@
 /**
- * @class Math utilities for Axonometric Projection.
+ * @class Math utilities.
  * @author Matthew Wagerfield
  */
-AP.Math = {
+APE.Math = {
 
     /**
      * Cache PI / 360 for calculating a Quaternion from an Euler angle.
@@ -24,7 +24,7 @@ AP.Math = {
 
     /**
      * Converts degrees to radians.
-     * @this {AP.Math}
+     * @this {APE.Math}
      *
      * @param {Number} degrees Angle in degrees to convert.
      *
@@ -37,7 +37,7 @@ AP.Math = {
 
     /**
      * Converts radians to degrees.
-     * @this {AP.Math}
+     * @this {APE.Math}
      *
      * @param {Number} radians Angle in radians to convert.
      *

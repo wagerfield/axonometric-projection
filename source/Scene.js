@@ -1,11 +1,11 @@
 /**
- * @class Creates a Scene to for Nodes.
+ * @class Creates a Scene for Nodes to exist within.
  * @author Matthew Wagerfield
  *
  * @param {Number} opt_pitch The pitch angle of the scene in degrees.
  * @param {Number} opt_rotation The rotation angle of the scene in degrees.
  */
-AP.Scene = function(opt_pitch, opt_rotation) {
+APE.Scene = function(opt_pitch, opt_rotation) {
 
     /**
      * The origin of the Scene coordinate system.
@@ -66,7 +66,7 @@ AP.Scene = function(opt_pitch, opt_rotation) {
     this.rotate(typeof opt_rotation === 'number' ? opt_rotation : 45);
 };
 
-AP.Scene.prototype = {
+APE.Scene.prototype = {
 
     /**
      * Object type.
@@ -76,33 +76,33 @@ AP.Scene.prototype = {
 
     /**
      * Sets the pitch of the Scene in degrees.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {Number} degrees The angle to pitch the Scene to.
      */
     pitch: function(degrees) {
 
-        this._pitchAngle = AP.Math.degreesToRadians(degrees);
+        this._pitchAngle = APE.Math.degreesToRadians(degrees);
         this._pitchRatio = Math.sin(this._pitchAngle);
         this._yRatio = Math.cos(this._pitchAngle);
     },
 
     /**
      * Sets the rotation of the Scene in degrees.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {Number} degrees The angle to rotate the Scene to.
      */
     rotate: function(degrees) {
 
-        this._rotationAngle = AP.Math.degreesToRadians(degrees);
+        this._rotationAngle = APE.Math.degreesToRadians(degrees);
         this._sinRotation = Math.sin(this._rotationAngle);
         this._cosRotation = Math.cos(this._rotationAngle);
     },
 
     /**
      * Sets the origin offset of the 2D coordinate system for the Scene.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {Number} x The x offset of the Scene origin.
      * @param {Number} y The y offset of the Scene origin.
@@ -119,7 +119,7 @@ AP.Scene.prototype = {
 
     /**
      * Adds a Node to the Scene.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {AxonometricProjectionNode} node Node to add to the Scene.
      *
@@ -127,7 +127,7 @@ AP.Scene.prototype = {
      */
     addChild: function(node) {
 
-        if (!~this.children.indexOf(node) && node.type === AP.Node.prototype.type) {
+        if (!~this.children.indexOf(node) && node.type === APE.Node.prototype.type) {
             this.children.push(node);
             node.parent = this;
 
@@ -151,7 +151,7 @@ AP.Scene.prototype = {
 
     /**
      * Removes a Node from the Scene.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @param {AxonometricProjectionNode} node Node to remove from the Scene.
      *
@@ -180,7 +180,7 @@ AP.Scene.prototype = {
 
     /**
      * Iterates through all the Nodes in the Scene and updates their px and py coordinates.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      */
     projectNodes: function() {
 
@@ -200,7 +200,7 @@ AP.Scene.prototype = {
 
     /**
      * Iterates through all the Nodes in the Scene and updates their zIndex property.
-     * @this {AP.Scene}
+     * @this {APE.Scene}
      *
      * @return {Array} Sorted nodes.
      */
