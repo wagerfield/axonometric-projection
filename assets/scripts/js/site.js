@@ -5,13 +5,13 @@
  */
 (function() {
 
-    var repositoryURL = 'https://github.com/MatthewWagerfield/Axonometric-Projection/',
+    var repositoryURL = 'https://github.com/MatthewWagerfield/ape/',
         zipPath = 'zipball/master/',
-        
+
         about = document.getElementById('about'),
         confirm = document.getElementById('confirm'),
         links = document.getElementById('links').querySelectorAll('a'),
-    
+
         callbacks = {
 
             onConfirmClick: function (event) {
@@ -36,10 +36,10 @@
             }
         };
 
-        
+
 
     function initialise() {
-        
+
         // Add a click handler to the confirm button in the 'about' overlay.
         confirm.addEventListener('click', callbacks.onConfirmClick);
 
@@ -47,7 +47,7 @@
         for (var i = 0, l = links.length; i < l; i++) {
             links[i].addEventListener('click', callbacks.onLinkClick);
         }
-        
+
         // Add the animate class after the page has loaded.
         about.classList.add('animate');
 
