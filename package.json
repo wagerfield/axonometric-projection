@@ -1,0 +1,29 @@
+{
+  "name": "axonometric-projection",
+  "version": "0.1.0",
+  "description": "2.5D Axonometric Projection Engine",
+  "homepage": "http://wagerfield.github.io/axonometric-projection/",
+  "author": "Matthew Wagerfield",
+  "readmeFilename": "README.md",
+  "license": "MIT",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wagerfield/axonometric-projection.git"
+  },
+  "keywords": [
+    "axonometric",
+    "projection",
+    "engine",
+    "2.5D"
+  ],
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "load-grunt-tasks": "^0.6.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "time-grunt": "^0.3.2"
+  }
+}
