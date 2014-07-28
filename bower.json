@@ -1,0 +1,25 @@
+{
+  "name": "axonometric-projection",
+  "version": "0.1.0",
+  "description": "2.5D Axonometric Projection Engine",
+  "homepage": "http://wagerfield.github.io/axonometric-projection/",
+  "authors": [
+    "Matthew Wagerfield"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "axonometric",
+    "projection",
+    "engine",
+    "2.5D"
+  ],
+  "ignore": [
+    "**/.*",
+    "gruntfile.js",
+    "node_modules",
+    "source"
+  ]
+}
