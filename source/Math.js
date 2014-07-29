@@ -31,7 +31,6 @@ APE.Math = {
      * @return {Number} Converted angle in radians.
      */
     degreesToRadians: function(degrees) {
-
         return degrees * this.DTR;
     },
 
@@ -44,7 +43,6 @@ APE.Math = {
      * @return {Number} Converted angle in degrees.
      */
     radiansToDegrees: function(radians) {
-
         return radians * this.RTD;
     }
 };

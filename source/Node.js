@@ -120,12 +120,13 @@ APE.Node = function(opt_id) {
      */
     this.scaleZ = 1;
 
-
     /**
      * Whether or not the Node should rotate about its local coordinate space relative to its current rotation.
      * @type {Boolean}
      */
     this.localRotation = false;
+
+
 
     /**
      * The x rotation of the Node in degrees.
@@ -226,7 +227,6 @@ APE.Node.prototype = {
      * @param {Number} z The amount to translate the Node by in z.
      */
     translate: function(x, y, z) {
-
         this.x = x;
         this.y = y;
         this.z = z;
@@ -241,7 +241,6 @@ APE.Node.prototype = {
      * @param {Number} z The amount to scale the Node by along its z axis.
      */
     scale: function(x, y, z) {
-
         this.scaleX = x;
         this.scaleY = y;
         this.scaleZ = z;
