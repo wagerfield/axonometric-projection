@@ -2,7 +2,7 @@
  * @class Math utilities.
  * @author Matthew Wagerfield
  */
-APE.Math = {
+AP.Math = {
 
     /**
      * Cache PI / 360 for calculating a Quaternion from an Euler angle.
@@ -24,7 +24,7 @@ APE.Math = {
 
     /**
      * Converts degrees to radians.
-     * @this {APE.Math}
+     * @this {AP.Math}
      *
      * @param {Number} degrees Angle in degrees to convert.
      *
@@ -36,7 +36,7 @@ APE.Math = {
 
     /**
      * Converts radians to degrees.
-     * @this {APE.Math}
+     * @this {AP.Math}
      *
      * @param {Number} radians Angle in radians to convert.
      *

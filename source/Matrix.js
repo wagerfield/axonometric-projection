@@ -5,17 +5,17 @@
  * Concepts and math inspired by and copied from gl-matrix.
  * @see https://github.com/toji/gl-matrix
  */
-APE.Matrix = {
+AP.Matrix = {
 
     /**
      * Creates a new Matrix array and sets it to an identity.
-     * @this {APE.Matrix}
+     * @this {AP.Matrix}
      *
      * @return {Float32Array|Array} 4x4 Matrix.
      */
     create: function() {
 
-        var matrix = new APE.Array(16);
+        var matrix = new AP.Array(16);
 
         this.identity(matrix);
 
@@ -24,7 +24,7 @@ APE.Matrix = {
 
     /**
      * Resets the Matrix components to identity values.
-     * @this {APE.Matrix}
+     * @this {AP.Matrix}
      *
      * @param {Float32Array|Array} target The Matrix to set the values of.
      *
@@ -57,7 +57,7 @@ APE.Matrix = {
 
     /**
      * Clones a master Matrix to a slave and returns the slave.
-     * @this {APE.Matrix}
+     * @this {AP.Matrix}
      *
      * @param {Float32Array|Array} source The Matrix to copy the values from.
      * @param {Float32Array|Array} target The Matrix to copy the values to.
@@ -91,7 +91,7 @@ APE.Matrix = {
 
     /**
      * Multiplies two Matrices together and returns the first one.
-     * @this {APE.Matrix}
+     * @this {AP.Matrix}
      *
      * @param {Float32Array|Array} a The first Matrix to multiply by.
      * @param {Float32Array|Array} b The second Matrix to multiply by.
@@ -135,7 +135,7 @@ APE.Matrix = {
 
     /**
      * Translates a Matrix in all axis.
-     * @this {APE.Matrix}
+     * @this {AP.Matrix}
      *
      * @param {Float32Array|Array} matrix The Matrix to translate.
      * @param {Float32Array|Array} slave A slave Matrix to manipulate.
@@ -160,7 +160,7 @@ APE.Matrix = {
 
     /**
      * Scales a Matrix in all axis.
-     * @this {APE.Matrix}
+     * @this {AP.Matrix}
      *
      * @param {Float32Array|Array} matrix The Matrix to scale.
      * @param {Float32Array|Array} slave A slave Matrix to manipulate.

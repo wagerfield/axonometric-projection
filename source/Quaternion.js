@@ -5,17 +5,17 @@
  * Math taken from Quaternions: How by Eric Brown.
  * @see http://physicsforgames.blogspot.se/2010/02/quaternions.html
  */
-APE.Quaternion = {
+AP.Quaternion = {
 
     /**
      * Creates a new Quaternion array.
-     * @this {APE.Quaternion}
+     * @this {AP.Quaternion}
      *
      * @return {Float32Array|Array} Quaternion.
      */
     create: function() {
 
-        var quaternion = new APE.Array(4);
+        var quaternion = new AP.Array(4);
 
         this.identity(quaternion);
 
@@ -24,7 +24,7 @@ APE.Quaternion = {
 
     /**
      * Resets the Quaternion components to identity values.
-     * @this {APE.Quaternion}
+     * @this {AP.Quaternion}
      *
      * @param {Float32Array|Array} target The Quaternion to set the values of.
      *
@@ -42,7 +42,7 @@ APE.Quaternion = {
 
     /**
      * Clones a master Quaternion to a slave Quaternion and returns the slave.
-     * @this {APE.Quaternion}
+     * @this {AP.Quaternion}
      *
      * @param {Float32Array|Array} source The Quaternion to copy the values from.
      * @param {Float32Array|Array} target The Quaternion to clone the values to.
@@ -61,7 +61,7 @@ APE.Quaternion = {
 
     /**
      * Multiplies two Quaternions together and returns the resultant Quaternion.
-     * @this {APE.Quaternion}
+     * @this {AP.Quaternion}
      *
      * @param {Float32Array|Array} target The Quaternion to apply the output to.
      * @param {Float32Array|Array} a The first Quaternion to multiply by.
@@ -84,7 +84,7 @@ APE.Quaternion = {
 
     /**
      * Configures a provided Quaternion from an Euler angle.
-     * @this {APE.Quaternion}
+     * @this {AP.Quaternion}
      *
      * @param {Float32Array|Array} target The Quaternion to apply the calculated values to.
      * @param {Float32Array|Array} x The x rotation in radians.
@@ -95,9 +95,9 @@ APE.Quaternion = {
      */
     fromEuler: function(target, x, y, z) {
 
-        var ax = x*APE.Math.ETQ,
-            ay = y*APE.Math.ETQ,
-            az = z*APE.Math.ETQ,
+        var ax = x*AP.Math.ETQ,
+            ay = y*AP.Math.ETQ,
+            az = z*AP.Math.ETQ,
 
             cx = Math.cos( ax ),
             sx = Math.sin( ax ),
@@ -119,7 +119,7 @@ APE.Quaternion = {
 
     /**
      * Sets the value of a Matrix from a Quaternion.
-     * @this {APE.Quaternion}
+     * @this {AP.Quaternion}
      *
      * @param {Float32Array|Array} matrix The Matrix to apply the values to.
      * @param {Float32Array|Array} q The Quaternion to convert.
@@ -128,7 +128,7 @@ APE.Quaternion = {
      */
     toMatrix: function(matrix, q) {
 
-        APE.Matrix.identity(matrix);
+        AP.Matrix.identity(matrix);
 
         var xs = q[0]*q[0],
             ys = q[1]*q[1],
