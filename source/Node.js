@@ -429,47 +429,41 @@ AP.Node.prototype = {
     }
 };
 
-Object.defineProperties(AP.Node.prototype, {
-
-    /**
-     * The x rotation of the Node in degrees.
-     * @type {Number}
-     */
-    'rotationX': {
-        enumerable: true,
-        get: function() {
-            return this._rotationX;
-        },
-        set: function(value) {
-            this.rotate(value, this._rotationY, this._rotationZ);
-        }
+/**
+ * The x rotation of the Node in degrees.
+ * @type {Number}
+ */
+Object.defineProperty(AP.Node.prototype, 'rotationX', {
+    set: function(value) {
+        this.rotate(value, this._rotationY, this._rotationZ);
     },
+    get: function() {
+        return this._rotationX;
+    }
+});
 
-    /**
-     * The y rotation of the Node in degrees.
-     * @type {Number}
-     */
-    'rotationY': {
-        enumerable: true,
-        get: function() {
-            return this._rotationY;
-        },
-        set: function(value) {
-            this.rotate(this._rotationX, value, this._rotationZ);
-        }
+/**
+ * The y rotation of the Node in degrees.
+ * @type {Number}
+ */
+Object.defineProperty(AP.Node.prototype, 'rotationY', {
+    set: function(value) {
+        this.rotate(this._rotationX, value, this._rotationZ);
     },
+    get: function() {
+        return this._rotationY;
+    }
+});
 
-    /**
-     * The z rotation of the Node in degrees.
-     * @type {Number}
-     */
-    'rotationZ': {
-        enumerable: true,
-        get: function() {
-            return this._rotationZ;
-        },
-        set: function(value) {
-            this.rotate(this._rotationX, this._rotationY, value);
-        }
+/**
+ * The z rotation of the Node in degrees.
+ * @type {Number}
+ */
+Object.defineProperty(AP.Node.prototype, 'rotationZ', {
+    set: function(value) {
+        this.rotate(this._rotationX, this._rotationY, value);
+    },
+    get: function() {
+        return this._rotationZ;
     }
 });
