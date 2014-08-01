@@ -132,49 +132,49 @@ AP.Node = function(opt_id) {
      * The x rotation of the Node in degrees.
      * @type {Number}
      */
-    this._rotationX = 0;
+    this.__rotationX = 0;
 
     /**
      * The y rotation of the Node in degrees.
      * @type {Number}
      */
-    this._rotationY = 0;
+    this.__rotationY = 0;
 
     /**
      * The z rotation of the Node in degrees.
      * @type {Number}
      */
-    this._rotationZ = 0;
+    this.__rotationZ = 0;
 
     /**
      * The 3D Matrix for the Node.
      * @type {AP.Matrix}
      */
-    this._matrix = AP.Matrix.create();
+    this.__matrix = AP.Matrix.create();
 
     /**
      * A Quaternion for rotation.
      * @type {AP.Quaternion}
      */
-    this._quaternion = AP.Quaternion.create();
+    this.__quaternion = AP.Quaternion.create();
 
     /**
      * A slave Matrix for transformation calculations.
      * @type {AP.Matrix}
      */
-    this._ms1 = AP.Matrix.create();
+    this.__ms1 = AP.Matrix.create();
 
     /**
      * A slave Quaternion for rotation calculations.
      * @type {AP.Quaternion}
      */
-    this._qs1 = AP.Quaternion.create();
+    this.__qs1 = AP.Quaternion.create();
 
     /**
      * A slave Quaternion for rotation calculations.
      * @type {AP.Quaternion}
      */
-    this._qs2 = AP.Quaternion.create();
+    this.__qs2 = AP.Quaternion.create();
 };
 
 AP.Node.prototype = {
@@ -208,14 +208,14 @@ AP.Node.prototype = {
         this.scaleY = 1;
         this.scaleZ = 1;
 
-        this._rotationX = 0;
-        this._rotationY = 0;
-        this._rotationZ = 0;
+        this.__rotationX = 0;
+        this.__rotationY = 0;
+        this.__rotationZ = 0;
 
         this.zDepth = 0;
 
-        AP.Matrix.identity(this._matrix);
-        AP.Quaternion.identity(this._quaternion);
+        AP.Matrix.identity(this.__matrix);
+        AP.Quaternion.identity(this.__quaternion);
     },
 
     /**
@@ -258,22 +258,22 @@ AP.Node.prototype = {
 
         if (this.localRotation) {
 
-            var dx = x - this._rotationX,
-                dy = y - this._rotationY,
-                dz = z - this._rotationZ;
+            var dx = x - this.__rotationX,
+                dy = y - this.__rotationY,
+                dz = z - this.__rotationZ;
 
-            AP.Quaternion.fromEuler(this._qs1, dx, dy, dz);
-            AP.Quaternion.clone(this._quaternion, this._qs2);
-            AP.Quaternion.multiply(this._quaternion, this._qs1, this._qs2);
+            AP.Quaternion.fromEuler(this.__qs1, dx, dy, dz);
+            AP.Quaternion.clone(this.__quaternion, this.__qs2);
+            AP.Quaternion.multiply(this.__quaternion, this.__qs1, this.__qs2);
 
         } else {
 
-            AP.Quaternion.fromEuler(this._quaternion, x, y, z);
+            AP.Quaternion.fromEuler(this.__quaternion, x, y, z);
         }
 
-        this._rotationX = x;
-        this._rotationY = y;
-        this._rotationZ = z;
+        this.__rotationX = x;
+        this.__rotationY = y;
+        this.__rotationZ = z;
     },
 
     /**
@@ -349,7 +349,7 @@ AP.Node.prototype = {
         bubble = typeof bubble === 'boolean' ? bubble : true;
 
         // Reset the matrix to identity values.
-        AP.Matrix.identity(this._matrix);
+        AP.Matrix.identity(this.__matrix);
 
         if (bubble) {
 
@@ -375,52 +375,52 @@ AP.Node.prototype = {
                 node = chain[i];
 
                 // Apply the transformations of this Node to its Matrix.
-                AP.Matrix.translate(this._matrix, this._ms1, node.x, node.y, node.z);
-                AP.Quaternion.toMatrix(this._ms1, node._quaternion);
-                AP.Matrix.multiply(this._matrix, this._ms1);
-                AP.Matrix.scale(this._matrix, this._ms1, node.scaleX, node.scaleY, node.scaleZ);
+                AP.Matrix.translate(this.__matrix, this.__ms1, node.x, node.y, node.z);
+                AP.Quaternion.toMatrix(this.__ms1, node.__quaternion);
+                AP.Matrix.multiply(this.__matrix, this.__ms1);
+                AP.Matrix.scale(this.__matrix, this.__ms1, node.scaleX, node.scaleY, node.scaleZ);
             }
 
         } else {
 
             if (this.parent.type === this.type) {
-                AP.Matrix.clone(this.parent._matrix, this._matrix);
+                AP.Matrix.clone(this.parent.__matrix, this.__matrix);
             }
 
             // Apply the transformations of this Node to its Matrix.
-            AP.Matrix.translate(this._matrix, this._ms1, this.x, this.y, this.z);
-            AP.Quaternion.toMatrix(this._ms1, this._quaternion);
-            AP.Matrix.multiply(this._matrix, this._ms1);
-            AP.Matrix.scale(this._matrix, this._ms1, this.scaleX, this.scaleY, this.scaleZ);
+            AP.Matrix.translate(this.__matrix, this.__ms1, this.x, this.y, this.z);
+            AP.Quaternion.toMatrix(this.__ms1, this.__quaternion);
+            AP.Matrix.multiply(this.__matrix, this.__ms1);
+            AP.Matrix.scale(this.__matrix, this.__ms1, this.scaleX, this.scaleY, this.scaleZ);
         }
 
         // reset
         this.px = this.py = this.zDepth = 0;
 
         // vertex
-        this.vx = this._matrix[12];
-        this.vy = this._matrix[13];
-        this.vz = this._matrix[14];
+        this.vx = this.__matrix[12];
+        this.vy = this.__matrix[13];
+        this.vz = this.__matrix[14];
 
         // x offset
-        this.px += this.vx * this.scene._cosRotation;
-        this.py += this.vx * this.scene._sinRotation;
+        this.px += this.vx * this.scene.__cosRotation;
+        this.py += this.vx * this.scene.__sinRotation;
 
         // y offset
-        this.px -= this.vz * this.scene._sinRotation;
-        this.py += this.vz * this.scene._cosRotation;
+        this.px -= this.vz * this.scene.__sinRotation;
+        this.py += this.vz * this.scene.__cosRotation;
 
         // pitch offset
-        this.py *= this.scene._pitchRatio;
+        this.py *= this.scene.__pitchRatio;
 
         // z offset
-        this.py -= this.vy * this.scene._yRatio;
+        this.py -= this.vy * this.scene.__yRatio;
 
         // z depth
-        this.zDepth += this.vx * this.scene._sinRotation;
-        this.zDepth += this.vz * this.scene._cosRotation;
-        this.zDepth *= this.scene._yRatio;
-        this.zDepth += this.vy * this.scene._pitchRatio;
+        this.zDepth += this.vx * this.scene.__sinRotation;
+        this.zDepth += this.vz * this.scene.__cosRotation;
+        this.zDepth *= this.scene.__yRatio;
+        this.zDepth += this.vy * this.scene.__pitchRatio;
         this.zDepth += this.zOffset;
 
         // origin offset
@@ -435,10 +435,10 @@ AP.Node.prototype = {
  */
 Object.defineProperty(AP.Node.prototype, 'rotationX', {
     set: function(value) {
-        this.rotate(value, this._rotationY, this._rotationZ);
+        this.rotate(value, this.__rotationY, this.__rotationZ);
     },
     get: function() {
-        return this._rotationX;
+        return this.__rotationX;
     }
 });
 
@@ -448,10 +448,10 @@ Object.defineProperty(AP.Node.prototype, 'rotationX', {
  */
 Object.defineProperty(AP.Node.prototype, 'rotationY', {
     set: function(value) {
-        this.rotate(this._rotationX, value, this._rotationZ);
+        this.rotate(this.__rotationX, value, this.__rotationZ);
     },
     get: function() {
-        return this._rotationY;
+        return this.__rotationY;
     }
 });
 
@@ -461,9 +461,9 @@ Object.defineProperty(AP.Node.prototype, 'rotationY', {
  */
 Object.defineProperty(AP.Node.prototype, 'rotationZ', {
     set: function(value) {
-        this.rotate(this._rotationX, this._rotationY, value);
+        this.rotate(this.__rotationX, this.__rotationY, value);
     },
     get: function() {
-        return this._rotationZ;
+        return this.__rotationZ;
     }
 });

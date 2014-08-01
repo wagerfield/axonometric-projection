@@ -23,37 +23,37 @@ AP.Scene = function(opt_pitch, opt_rotation) {
      * The rotation angle of the Scene in radians.
      * @type {Number}
      */
-    this._rotationAngle = 0;
+    this.__rotationAngle = 0;
 
     /**
      * The sine value for the rotation.
      * @type {Number}
      */
-    this._sinRotation = 0;
+    this.__sinRotation = 0;
 
     /**
      * The cosine value for the rotation.
      * @type {Number}
      */
-    this._cosRotation = 0;
+    this.__cosRotation = 0;
 
     /**
      * The pitch angle of the Scene.
      * @type {Number}
      */
-    this._pitchAngle = 0;
+    this.__pitchAngle = 0;
 
     /**
      * The pitch ratio of the Scene.
      * @type {Number}
      */
-    this._pitchRatio = 0;
+    this.__pitchRatio = 0;
 
     /**
      * The y ratio of the Scene.
      * @type {Number}
      */
-    this._yRatio = 0;
+    this.__yRatio = 0;
 
     /**
      * Set the initial pitch of the Scene.
@@ -82,9 +82,9 @@ AP.Scene.prototype = {
      */
     pitch: function(degrees) {
 
-        this._pitchAngle = AP.Math.degreesToRadians(degrees);
-        this._pitchRatio = Math.sin(this._pitchAngle);
-        this._yRatio = Math.cos(this._pitchAngle);
+        this.__pitchAngle = AP.Math.degreesToRadians(degrees);
+        this.__pitchRatio = Math.sin(this.__pitchAngle);
+        this.__yRatio = Math.cos(this.__pitchAngle);
     },
 
     /**
@@ -95,9 +95,9 @@ AP.Scene.prototype = {
      */
     rotate: function(degrees) {
 
-        this._rotationAngle = AP.Math.degreesToRadians(degrees);
-        this._sinRotation = Math.sin(this._rotationAngle);
-        this._cosRotation = Math.cos(this._rotationAngle);
+        this.__rotationAngle = AP.Math.degreesToRadians(degrees);
+        this.__sinRotation = Math.sin(this.__rotationAngle);
+        this.__cosRotation = Math.cos(this.__rotationAngle);
     },
 
     /**
